@@ -74,4 +74,3 @@ export default function Globe({ body = 'earth', highlight = new Map(), pins = []
 
   return <canvas ref={cv} tabIndex={0} aria-label={body === 'earth' ? 'Interactive Earth globe. Drag to rotate, click a country, arrow keys also rotate.' : 'Interactive Moon. Drag to rotate, click a landing site.'} />;
 }
-

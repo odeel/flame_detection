@@ -1,4 +1,4 @@
-
+// KPI values are MOCK placeholders; replace with real PSI numbers when the data layer exists.
 export const ROLES = {
   researcher: {
     label: 'Researcher', canViewAs: 'engineer',
