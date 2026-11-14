@@ -34,3 +34,17 @@ input{background:var(--field);border:1px solid var(--line);border-radius:10px;pa
 .msg{max-width:85%;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);display:grid;gap:8px}.msg.user{align-self:flex-end;background:var(--pr);color:var(--pr-tx);border-color:var(--pr)}.msg.assistant{cursor:pointer}.msg.err{border-color:var(--err)}
 .thread .askbar{margin-top:auto;position:sticky;bottom:0;background:var(--bg);padding-top:8px;max-width:none}
 @media(max-width:1000px){.chat{grid-template-columns:1fr;height:auto}}
+/* explorer from API */
+.explorer{display:grid;gap:10px}.prio summary{cursor:pointer;color:var(--pr)}.prio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:8px}.prio label{display:grid;gap:4px;font-size:13px;color:var(--mu)}
+select{background:var(--field);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--tx)}
+.filters{display:flex;flex-wrap:wrap;gap:10px}.filters input{flex:1;min-width:180px}
+.inv{border-top:1px solid var(--line)}.inv-head{display:grid;grid-template-columns:40px 1fr 56px;gap:12px;align-items:center;width:100%;background:none;border:0;padding:12px 0;text-align:left}
+.inv-name{display:grid}.rk{color:var(--mu);font:700 14px 'Space Grotesk'}.score{font:700 22px 'Space Grotesk';color:var(--pr);text-align:right}
+.inv-body{display:grid;gap:10px;padding:0 0 14px 52px}.crit{display:grid;gap:6px}.crit>div{display:grid;grid-template-columns:150px 1fr 32px;gap:10px;align-items:center}
+.crit i{display:block;height:6px;background:var(--field);border-radius:3px}.crit u{display:block;height:6px;background:var(--pr);border-radius:3px}
+.actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.detail{display:grid;gap:10px}.detail ul{margin:0;padding-left:20px}
+.tbl{overflow:auto;border:1px solid var(--line);border-radius:10px}.tbl table{border-collapse:collapse;width:100%;font-size:13px}.tbl th,.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.tbl th{color:var(--mu);font-weight:500}
+.passage{white-space:pre-wrap;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.5 Inter,sans-serif;margin:6px 0}
+.cite{background:none;border:1px solid var(--pr);color:var(--pr);border-radius:4px;padding:0 6px;margin:0 2px;font-size:12px}.card.hl{border-color:var(--acc)}
+.col{display:grid;gap:14px}.big{font-size:28px}.err{color:var(--err)}

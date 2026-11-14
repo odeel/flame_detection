@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from './api.js';
-// History lives in localStorage per user until the backend provides /api/conversations (see DATA_CONTRACT.md).
+// History is kept in the browser per user. The backend has no conversations endpoint yet (see BACKEND_NOTES.md).
 const key = (u) => `chats:${u}`;
 const load = (u) => { try { return JSON.parse(localStorage.getItem(key(u)) || '[]'); } catch { return []; } };
 
@@ -13,16 +13,16 @@ export function useChats(user) {
 
   async function ask(text, { id = null, habitat } = {}) {
     const cid = id || crypto.randomUUID();
-    const hab = chats.find((c) => c.id === cid)?.habitat || habitat;
+    const hab = chats.find((c) => c.id === cid)?.habitat || habitat || null;      // { id, name }
     if (!id) setChats((cs) => [{ id: cid, title: text.slice(0, 50), habitat: hab, created: Date.now(), messages: [] }, ...cs]);
     setActive(cid);
     upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'user', text, ts: Date.now() }] }));
     setBusy(true);
     try {
-      const r = await api.ask({ question: text, conversationId: cid, role: user.role, habitat: hab });
-      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: r.answer, citations: r.citations || [], followups: r.followups || [], ts: Date.now() }] }));
-    } catch {
-      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: 'Sorry, I could not reach the data service. Please try again.', error: true, citations: [], ts: Date.now() }] }));
+      const r = await api.ask({ question: text, habitat: hab?.id || null, k: 5, check: true });
+      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: r.answer, sources: r.sources || [], status: r.status, answerable: r.answerable, removed: r.removed_sentences?.length || 0, ts: Date.now() }] }));
+    } catch (e) {
+      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: e.message, error: true, sources: [], ts: Date.now() }] }));
     } finally { setBusy(false); }
   }
   const remove = (id) => { setChats((cs) => cs.filter((c) => c.id !== id)); if (active === id) setActive(null); };

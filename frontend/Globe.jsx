@@ -12,7 +12,7 @@ const rnd = (i, k) => { const v = Math.sin(i * k) * 43758.5453; return v - Math.
 const CRATERS = Array.from({ length: 45 }, (_, i) => geoCircle().center([rnd(i, 12.9) * 360 - 180, rnd(i, 78.2) * 160 - 80]).radius(1 + rnd(i, 39.3) * 6)());
 const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 
-/** props: body 'earth'|'moon', highlight Map(countryName -> any), pins [{id,name,ll:[lon,lat]}],
+/** props: body 'earth'|'moon'|'mars', highlight Map(countryName -> any), pins [{id,name,ll:[lon,lat]}],
  *  selected (country name or pin id), onSelect(key), orbit (draw ISS orbit) */
 export default function Globe({ body = 'earth', highlight = new Map(), pins = [], selected, onSelect, orbit = false }) {
   const cv = useRef(null);
@@ -38,7 +38,7 @@ export default function Globe({ body = 'earth', highlight = new Map(), pins = []
       proj.translate([W / 2, H / 2]).scale(R * s.k).rotate(s.rot); ctx.clearRect(0, 0, W, H);
       const pr = css('--pr'), acc = css('--acc'), line = css('--line'), bg = css('--bg'), bg2 = css('--bg2'), tx = css('--tx');
       const g = ctx.createRadialGradient(W / 2 - R * 0.35, H / 2 - R * 0.4, R * 0.1, W / 2, H / 2, R * 1.05);
-      if (body === 'earth') { g.addColorStop(0, bg2); g.addColorStop(1, bg); } else { g.addColorStop(0, '#cfcfd8'); g.addColorStop(1, '#4b4b5a'); }
+      if (body === 'earth') { g.addColorStop(0, bg2); g.addColorStop(1, bg); } else if (body === 'mars') { g.addColorStop(0, '#e8a27c'); g.addColorStop(1, '#5e2a18'); } else { g.addColorStop(0, '#cfcfd8'); g.addColorStop(1, '#4b4b5a'); }
       ctx.beginPath(); path({ type: 'Sphere' }); ctx.fillStyle = g; ctx.fill();
       if (body === 'earth') {
         ctx.globalAlpha = 0.4; ctx.beginPath(); path(grat); ctx.strokeStyle = line; ctx.lineWidth = 0.6; ctx.stroke();
@@ -53,7 +53,7 @@ export default function Globe({ body = 'earth', highlight = new Map(), pins = []
       for (const p of pins) {
         if (geoDistance(p.ll, [-s.rot[0], -s.rot[1]]) > Math.PI / 2) continue; const [x, y] = proj(p.ll), on = p.id === selected;
         ctx.beginPath(); ctx.arc(x, y, on ? 8 : 6, 0, 7); ctx.fillStyle = on ? acc : pr; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#fff'; ctx.stroke();
-        ctx.font = '600 11px Inter, sans-serif'; ctx.fillStyle = body === 'moon' ? '#fff' : tx; ctx.fillText(p.name, x + 10, y - 8);
+        ctx.font = '600 11px Inter, sans-serif'; ctx.fillStyle = body !== 'earth' ? '#fff' : tx; ctx.fillText(p.name, x + 10, y - 8);
       }
       raf = requestAnimationFrame(frame);
     };
@@ -72,5 +72,5 @@ export default function Globe({ body = 'earth', highlight = new Map(), pins = []
     return () => { cancelAnimationFrame(raf); ro.disconnect(); c.removeEventListener('pointerdown', down); c.removeEventListener('pointermove', move); c.removeEventListener('pointerup', up); c.removeEventListener('wheel', wheel); c.removeEventListener('keydown', key); };
   }, []);
 
-  return <canvas ref={cv} tabIndex={0} aria-label={body === 'earth' ? 'Interactive Earth globe. Drag to rotate, click a country, arrow keys also rotate.' : 'Interactive Moon. Drag to rotate, click a landing site.'} />;
+  return <canvas ref={cv} tabIndex={0} aria-label={body === 'earth' ? 'Interactive Earth globe. Drag to rotate, click a country, arrow keys also rotate.' : `Interactive ${body}. Drag to rotate, click a marker.`} />;
 }

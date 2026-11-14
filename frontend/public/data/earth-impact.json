@@ -1,0 +1,10 @@
+{"combustion":[
+ {"value":"85","unit":"%","text":"Share of the energy we use that comes from combustion.","note":"Quote from ACME project scientist Dennis Stocker","source":"phys.org, 2018"},
+ {"value":"70","unit":"%","text":"Share of home and work electricity from combustion power plants (approximate).","note":"Approximate","source":"phys.org, 2018"}],
+ "spinoffs":[
+ {"year":1976,"tech":"Firefighter air tank system","source":"spinoff.nasa.gov/node/9582","items":[
+  {"metric":"Backpack system weight","value":20,"unit":"lb"},{"metric":"Weight saved vs conventional tanks","value":13,"unit":"lb"},
+  {"metric":"Air supply","value":30,"unit":"min"},{"metric":"Operating pressure","value":4500,"unit":"psi"},
+  {"metric":"Conventional tank weight","value":33,"unit":"lb","derived":true},{"metric":"Conventional pressure","value":2250,"unit":"psi","derived":true}]},
+ {"year":1982,"tech":"Project FIRES protective ensemble","source":"spinoff.nasa.gov/node/9918","items":[{"metric":"Fire departments in field evaluation","value":14,"unit":""}]},
+ {"year":1986,"tech":"Lightweight breathing system","source":"spinoff.nasa.gov/node/9518","items":[{"metric":"Reported effect","value":"fewer inhalation injuries (no figures given)","unit":""}]}]}

@@ -1,0 +1,8 @@
+[
+ {"key":"CLD","name":"CLD Flame (Coflow Laminar Diffusion Flame)","pis":"Marshall B. Long; Mitchell D. Smooke","studies":"Structure of diluted methane and ethylene coflow flames.","link":"Improves chemical kinetic and soot models at extreme dilution and sooting conditions.","source":"NTRS 20210021781"},
+ {"key":"E-FIELD","name":"E-FIELD Flames","pis":"Derek Dunn-Rankin; Sunny Karnani","studies":"Effect of electric fields on chemi-ionization, ion-driven flows, flame shape and soot.","link":"Electric-field control of non-premixed flames, including soot.","source":"NTRS 20210021781"},
+ {"key":"BRE","name":"BRE (Burning Rate Emulator)","pis":"James G. Quintiere; Peter B. Sunderland; John L. de Ris","studies":"Materials flammability and extinction using a porous burner.","link":"Spacecraft fire prevention focus (not emissions).","source":"NTRS 20210021781"},
+ {"key":"Flame Design","name":"Flame Design","pis":"Richard L. Axelbaum; Peter B. Sunderland; David L. Urban","studies":"Soot inception and control in normal and inverse non-premixed flames.","link":"Supports soot-free, oxygen-enriched combustion design.","source":"NTRS 20210021781"},
+ {"key":"s-Flame","name":"s-Flame","pis":"Chung K. Law; Stephen D. Tse; Kurt R. Sacksteder","studies":"Structure, dynamics and extinction of spherical diffusion flames.","link":"Flame stability and extinction limits.","source":"NTRS 20210021781"},
+ {"key":"CFI-G","name":"CFI-G (Cool Flames Investigation with Gases)","pis":"Peter B. Sunderland; Richard L. Axelbaum; Forman A. Williams","studies":"Quasi-steady non-premixed spherical cool flames (ethane, propane, n-butane).","link":"Cool-flame kinetics.","source":"NTRS 20210021781"}
+]

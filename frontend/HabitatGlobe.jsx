@@ -1,48 +1,52 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Globe from './Globe.jsx';
+import { local, useApi } from './api.js';
 
-// Static reference content (frontend-owned). Country names match the world-atlas dataset.
+const BODY = { iss: 'earth', gateway: 'moon', moon_base: 'moon', mars_base: 'mars' };
 const ESA = ['France', 'Germany', 'Italy', 'Spain', 'Belgium', 'Netherlands', 'Switzerland', 'Denmark', 'Norway', 'Sweden', 'United Kingdom'];
 const PARTNERS = new Map([
-  ['United States of America', { agency: 'NASA', fact: 'Leads the program; Destiny laboratory module.' }],
-  ['Russia', { agency: 'Roscosmos', fact: 'Provides core Russian segment modules.' }],
-  ['Japan', { agency: 'JAXA', fact: 'Kibo laboratory module.' }],
-  ['Canada', { agency: 'CSA', fact: 'Canadarm2 robotic arm.' }],
-  ...ESA.map((n) => [n, { agency: 'ESA member', fact: 'Takes part through ESA, which provides the Columbus laboratory.' }]),
+  ['United States of America', ['NASA', 'Leads the program; Destiny laboratory module.']], ['Russia', ['Roscosmos', 'Russian segment modules.']],
+  ['Japan', ['JAXA', 'Kibo laboratory module.']], ['Canada', ['CSA', 'Canadarm2 robotic arm.']],
+  ...ESA.map((n) => [n, ['ESA member', 'Takes part through ESA, which provides the Columbus laboratory.']]),
 ]);
-// Approximate coordinates [lon, lat]; verify before publishing.
+// Approximate [lon, lat]; verify before publishing.
 const SITES = [
-  { id: 'a11', name: 'Apollo 11', country: 'USA', year: 1969, ll: [23.47, 0.67] },
-  { id: 'a15', name: 'Apollo 15', country: 'USA', year: 1971, ll: [3.63, 26.13] },
-  { id: 'a17', name: 'Apollo 17', country: 'USA', year: 1972, ll: [30.77, 20.19] },
-  { id: 'c3', name: 'Chang’e-3', country: 'China', year: 2013, ll: [-19.51, 44.12] },
-  { id: 'c4', name: 'Chang’e-4', country: 'China', year: 2019, ll: [177.59, -45.46] },
-  { id: 'ch3', name: 'Chandrayaan-3', country: 'India', year: 2023, ll: [32.32, -69.37] },
-  { id: 'slim', name: 'SLIM', country: 'Japan', year: 2024, ll: [25.25, -13.3] },
+  { id: 'a11', name: 'Apollo 11', ll: [23.47, 0.67], note: 'USA · 1969' }, { id: 'a15', name: 'Apollo 15', ll: [3.63, 26.13], note: 'USA · 1971' },
+  { id: 'a17', name: 'Apollo 17', ll: [30.77, 20.19], note: 'USA · 1972' }, { id: 'c3', name: 'Chang’e-3', ll: [-19.51, 44.12], note: 'China · 2013' },
+  { id: 'c4', name: 'Chang’e-4', ll: [177.59, -45.46], note: 'China · 2019' }, { id: 'ch3', name: 'Chandrayaan-3', ll: [32.32, -69.37], note: 'India · 2023' },
+  { id: 'slim', name: 'SLIM', ll: [25.25, -13.3], note: 'Japan · 2024' },
 ];
 
 export default function HabitatGlobe({ habitat, onAsk }) {
-  const moon = habitat.includes('Lunar');
+  const body = BODY[habitat.id] || 'earth';
   const [sel, setSel] = useState(null);
+  useEffect(() => setSel(null), [habitat.id]);
+  const luci = useApi(() => local('luci'), []);
+  const hp = habitat.lat != null && habitat.lon != null && body !== 'earth' && habitat.id !== 'gateway' ? [{ id: habitat.id, name: habitat.name, ll: [habitat.lon, habitat.lat] }] : [];
+  const pins = body === 'moon' ? [...SITES.filter(() => habitat.id !== 'gateway'), ...hp] : hp;
   const info = useMemo(() => {
     if (!sel) return null;
-    if (moon) { const s = SITES.find((x) => x.id === sel); return s && { title: s.name, sub: `${s.country} · ${s.year}`, text: 'Landing site on the Moon. Lunar-gravity combustion data is not in PSI yet.', q: `What fire-safety research is relevant to ${s.name}-type lunar surface missions?` }; }
-    const p = PARTNERS.get(sel);
-    return { title: sel, sub: p ? p.agency : 'Not an ISS partner nation', text: p ? p.fact : 'This country is not one of the ISS partner nations.', q: p ? `Which ISS combustion experiments involved ${p.agency === 'ESA member' ? 'ESA' : p.agency}?` : null };
-  }, [sel, moon]);
+    const s = SITES.find((x) => x.id === sel); if (s) return [s.name, s.note, 'Past landing site, shown for orientation.'];
+    const p = PARTNERS.get(sel); if (p || body === 'earth') return [sel, p ? p[0] : 'Not an ISS partner nation', p ? p[1] : ''];
+    return null;
+  }, [sel, body]);
   return (
     <div className="globe-wrap">
-      <div className="globe-box">
-        <Globe key={moon ? 'moon' : 'earth'} body={moon ? 'moon' : 'earth'} highlight={moon ? new Map() : PARTNERS} pins={moon ? SITES : []} orbit={!moon} selected={sel} onSelect={setSel} />
-      </div>
+      <div className="globe-box"><Globe key={body} body={body} highlight={body === 'earth' ? PARTNERS : new Map()} pins={pins} orbit={body === 'earth'} selected={sel} onSelect={setSel} /></div>
       <div className="globe-side">
-        <h3>{moon ? 'Lunar landing sites' : 'ISS partner nations'}</h3>
-        <p className="mu sm">Drag to rotate, scroll to zoom, click {moon ? 'a site' : 'a country'}.</p>
-        {moon && <div className="chips">{SITES.map((s) => <button key={s.id} className={'chip' + (sel === s.id ? ' on' : '')} onClick={() => setSel(s.id)}>{s.name}</button>)}</div>}
-        <div className="card info" aria-live="polite">
-          {info ? (<><b>{info.title}</b><p className="mu sm">{info.sub}</p><p>{info.text}</p>{info.q && <button className="btn" onClick={() => onAsk(info.q)}>Ask about this</button>}</>)
-            : <p className="mu">Nothing selected yet.</p>}
+        <div className="card info">
+          <h3>{habitat.name}</h3>
+          <p className="mu sm">{habitat.body} · {habitat.o2_pct}% O₂ · {habitat.pressure_kpa} kPa · {habitat.gravity_g} g {habitat.status === 'assumption' && <span className="tag">assumption</span>}</p>
+          <p>{habitat.description}</p>
+          {habitat.note && <p className="mu sm">{habitat.note}</p>}
+          <p className="mu sm">{habitat.source}</p>
+          <button className="btn" onClick={() => onAsk(`What fire-safety research is relevant to ${habitat.name}?`)}>Ask about this habitat</button>
         </div>
+        {info && <div className="card info" aria-live="polite"><b>{info[0]}</b><p className="mu sm">{info[1]}</p><p className="sm">{info[2]}</p></div>}
+        {body === 'moon' && luci.data && (
+          <div className="card info"><h3>{luci.data.title}</h3><p className="mu sm">{luci.data.note}</p>
+            <ul className="sm">{luci.data.points.map((p) => <li key={p}>{p}</li>)}</ul><p className="mu sm">Not reported: {luci.data.notReported} · {luci.data.source}</p></div>)}
+        <p className="mu sm">Drag to rotate, scroll to zoom, click a marker{body === 'earth' ? ' or country' : ''}.</p>
       </div>
     </div>
   );
