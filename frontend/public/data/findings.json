@@ -1,0 +1,65 @@
+[
+ {
+  "key": "CLD",
+  "investigation": "CLD Flame",
+  "finding": "Soot volume fraction of sooty attached flames several times greater in microgravity than in comparable normal-gravity flames",
+  "quantified": "No (no absolute values)",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "CLD",
+  "investigation": "CLD Flame",
+  "finding": "Dilution limits for methane and ethylene extended in microgravity (lifted flames at lower fuel concentrations)",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "CLD",
+  "investigation": "CLD Flame",
+  "finding": "Microgravity flames taller and wider than normal-gravity flames",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "E-FIELD",
+  "investigation": "E-FIELD Flames",
+  "finding": "Distinct peak in ion current at the most compact flame size in microgravity",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "E-FIELD",
+  "investigation": "E-FIELD Flames",
+  "finding": "Highly diluted flames stabilized with very weak fields; high field strengths produced corona and arc discharges",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "BRE",
+  "investigation": "BRE",
+  "finding": "Flames self-extinguished below roughly 25 percent oxygen by volume",
+  "quantified": "Yes (approximate)",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "s-Flame",
+  "investigation": "s-Flame",
+  "finding": "Radiative extinction at high flow rates and kinetic extinction at low flow rates; helium dilution shifted limits",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "CFI-G",
+  "investigation": "CFI-G",
+  "finding": "Cool flames significantly smaller than corresponding hot flames",
+  "quantified": "No",
+  "source": "NTRS 20210021781"
+ },
+ {
+  "key": "General",
+  "investigation": "General",
+  "finding": "Microgravity suppresses buoyancy-driven flicker and gives spherical flames that simplify modeling",
+  "quantified": "No",
+  "source": "NTRS 20210015913"
+ }
+]

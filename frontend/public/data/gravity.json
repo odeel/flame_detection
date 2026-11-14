@@ -1,0 +1,105 @@
+{
+ "bodies": [
+  {
+   "body": "Moon",
+   "ms2": 1.62,
+   "g": 0.165,
+   "note": "Text elsewhere rounds to 0.16 g",
+   "source": "NTRS 19980209743"
+  },
+  {
+   "body": "Mars",
+   "ms2": 3.73,
+   "g": 0.38,
+   "note": "",
+   "source": "NTRS 19980209743"
+  },
+  {
+   "body": "Earth",
+   "ms2": 9.81,
+   "g": 1.0,
+   "note": "Reference",
+   "source": "standard value"
+  }
+ ],
+ "durations": [
+  {
+   "platform": "Drop tower",
+   "seconds": 5,
+   "type": "microgravity",
+   "note": "Approximate",
+   "source": "NTRS 20260000646"
+  },
+  {
+   "platform": "Aircraft parabola",
+   "seconds": 25,
+   "type": "partial or micro gravity",
+   "note": "Approximate (KC-135 parabolas 20-45 s)",
+   "source": "NTRS 20260000646, 20010059376"
+  },
+  {
+   "platform": "Sounding rocket / centrifuge (LUCI)",
+   "seconds": 150,
+   "type": "simulated lunar gravity",
+   "note": "Two materials burned; 2.5+ minutes",
+   "source": "NTRS 20260000646, 20250010653"
+  },
+  {
+   "platform": "FM2 (planned long-duration lunar-g)",
+   "seconds": null,
+   "type": "lunar gravity",
+   "note": "4 solid fuel samples, one per test; launch planned late 2026; no data yet",
+   "source": "NTRS 20260000646"
+  }
+ ],
+ "findings": [
+  {
+   "topic": "Spread rate vs gravity",
+   "finding": "Spread rate is LOWER at lunar gravity than at 1 g (ratios 0.38-0.6)",
+   "config": "LUCI: SIBAL fabric and PMMA rod in air",
+   "quantified": "Yes",
+   "source": "NTRS 20250010653",
+   "caution": "Single flight; one sample pair"
+  },
+  {
+   "topic": "Spread rate vs gravity",
+   "finding": "Upward spread rate increases linearly with gravity (so lower at 0.16 g than 1 g)",
+   "config": "KC-135: thin tissue 21% O2 0.1-0.4 atm",
+   "quantified": "Trend only",
+   "source": "NTRS 20010059376",
+   "caution": "Numeric rates only in figures"
+  },
+  {
+   "topic": "Spread rate vs gravity",
+   "finding": "Downward thin-paper spread peaks near Mars gravity; lunar rate below Mars but above 1 g",
+   "config": "Older review: downward spread 101 kPa 18-21% O2",
+   "quantified": "No (axis units unreadable)",
+   "source": "NTRS 19980209743",
+   "caution": "Apparent conflict with rows above: orientation and fuel differ"
+  },
+  {
+   "topic": "Flammability limit",
+   "finding": "Minimum oxygen for flame spread is lowest near lunar gravity (more flammable)",
+   "config": "Ferkul LPSC 2026 summary",
+   "quantified": "No numbers given",
+   "source": "NTRS 20260000646",
+   "caution": "Stated as hypothesis; FM2 data not yet available"
+  },
+  {
+   "topic": "Habitat atmosphere",
+   "finding": "Future habitats may use lower pressure with higher oxygen than air",
+   "config": "Ferkul LPSC 2026 summary",
+   "quantified": "No numbers given",
+   "source": "NTRS 20260000646",
+   "caution": "Raises fire risk questions"
+  },
+  {
+   "topic": "Smoke and suppression",
+   "finding": "Fire signatures and suppression in partial gravity are described as entirely unknown",
+   "config": "Older review",
+   "quantified": "No",
+   "source": "NTRS 19980209743",
+   "caution": "Written in 1998"
+  }
+ ]
+}

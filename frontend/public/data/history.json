@@ -1,0 +1,66 @@
+[
+ {
+  "year": 1967,
+  "date": "1967-01-27",
+  "event": "Apollo 1 cabin fire during pre-launch test (100% oxygen atmosphere)",
+  "category": "Incident",
+  "key_number": "3 crew",
+  "source": "sma.nasa.gov Apollo 1"
+ },
+ {
+  "year": 1967,
+  "date": "1967-04-09",
+  "event": "Apollo 204 Review Board releases final report (3000 pages)",
+  "category": "Investigation",
+  "key_number": "21 panels",
+  "source": "sma.nasa.gov Apollo 1"
+ },
+ {
+  "year": 1970,
+  "date": "1970-04-11",
+  "event": "Apollo 13 launches; oxygen tank 2 explodes after launch and damages tank 1",
+  "category": "Incident",
+  "key_number": "2 of 3 fuel cells lost",
+  "source": "nasa.gov Apollo 13 page"
+ },
+ {
+  "year": 1976,
+  "date": "1976",
+  "event": "Lightweight firefighter air tank system adapted from spacesuit technology",
+  "category": "Firefighter equipment",
+  "key_number": "20 lb; 30 min air; 4500 psi",
+  "source": "spinoff.nasa.gov/node/9582"
+ },
+ {
+  "year": 1978,
+  "date": "1978",
+  "event": "Brunswick Incipient Fire Detector described (discriminates smoke from dust; fewer false alarms)",
+  "category": "Detection",
+  "key_number": "",
+  "source": "spinoff.nasa.gov/node/9407"
+ },
+ {
+  "year": 1982,
+  "date": "1982",
+  "event": "Project FIRES firefighter protective ensemble field-evaluated",
+  "category": "Firefighter equipment",
+  "key_number": "14 fire departments",
+  "source": "spinoff.nasa.gov/node/9918"
+ },
+ {
+  "year": 1986,
+  "date": "1986",
+  "event": "Lightweight breathing system (aluminum composite) marketed by Scott Aviation",
+  "category": "Firefighter equipment",
+  "key_number": "",
+  "source": "spinoff.nasa.gov/node/9518"
+ },
+ {
+  "year": 1997,
+  "date": "1997-02-24",
+  "event": "Fire in Mir oxygen generator (NASA safety page says Feb 23)",
+  "category": "Incident",
+  "key_number": "6 crew; 3 extinguishers",
+  "source": "NASA feature on Mir fire"
+ }
+]

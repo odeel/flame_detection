@@ -2,16 +2,16 @@ export const ROLES = {
   researcher: {
     label: 'Researcher', canViewAs: 'engineer',
     headline: ['Turn NASA combustion research into mission-ready', 'fire intelligence.'],
-    search: 'Ask about flammability, extinction, test conditions…',
-    queries: ['Which tests cover lunar base conditions?', 'Is there partial-gravity data?', 'How is fire suppressed in a spacecraft?'],
-    title: 'PSI investigation explorer', options: ['Explorer', 'Compare', 'Habitats', 'Modeling data'], habitats: true,
+    search: 'Search NASA combustion data (e.g. "Show solid material extinction limits in 30% O₂")',
+    queries: ['Which tests cover lunar base conditions?', 'Is there partial-gravity data?', 'How is fire suppressed in a spacecraft?', 'Extinction limits in elevated O₂'],
+    title: 'PSI investigation explorer', options: ['Explorer', 'Compare', 'Habitats', 'Partial gravity', 'Modeling data'], habitats: true,
   },
   engineer: {
     label: 'Engineer', canViewAs: 'researcher',
     headline: ['Choose fire-safety controls for your habitat with', 'fire intelligence.'],
     search: 'Ask about materials, smoke detection, suppression…',
-    queries: ['Which materials are riskiest in elevated oxygen?', 'How is smoke detected in microgravity?', 'Which agents suppress fire best?'],
-    title: 'Fire safety explorer', options: ['Explorer', 'Habitats', 'Compare'], habitats: true,
+    queries: ['Which materials are riskiest in elevated oxygen?', 'How is smoke detected in microgravity?', 'Which agents suppress fire best?', 'Fire risks in ISS'],
+    title: 'Fire safety explorer', options: ['Explorer', 'Habitats', 'Partial gravity', 'Compare'], habitats: true,
   },
   student: {
     label: 'Student', canViewAs: null,
