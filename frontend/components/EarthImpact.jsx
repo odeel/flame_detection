@@ -1,18 +1,45 @@
 import { local, useApi } from '../api.js';
+import { Async, Card, Section, Skeleton } from '../ui.jsx';
+
+/** Student panels: why combustion matters on Earth, NASA spinoffs, cleaner combustion research. */
 export default function EarthImpact() {
   const e = useApi(() => local('earth-impact'), []), a = useApi(() => local('acme'), []), f = useApi(() => local('findings'), []);
-  if (e.loading) return <p className="mu">Loading…</p>;
-  if (e.error) return <p className="err">{e.error}</p>;
   const gen = (f.data || []).find((x) => x.key === 'General');
   return (
-    <div className="col">
-      <h2>Why flames matter on Earth</h2>
-      <div className="grid4">{e.data.combustion.map((m) => <div className="card" key={m.text}><b className="big">{m.value}{m.unit}</b><p className="sm">{m.text}</p><p className="mu sm">{m.note} · {m.source}</p></div>)}</div>
-      <h2>Space research that protects people</h2>
-      <div className="grid4">{e.data.spinoffs.map((s) => <div className="card" key={s.tech}><h3>{s.tech}</h3><p className="mu sm">{s.year}</p>{s.items.map((i) => <p className="sm" key={i.metric}>{i.metric}: <b>{i.value} {i.unit}</b>{i.derived && <span className="mu"> (calculated)</span>}</p>)}<p className="mu sm">{s.source}</p></div>)}</div>
-      <h2>Cleaner, more efficient combustion</h2>
-      <div className="grid4">{(a.data || []).map((x) => <div className="card" key={x.key}><h3>{x.name}</h3><p className="sm">{x.studies}</p><p className="mu sm">{x.link}</p></div>)}</div>
-      {gen && <p className="mu sm">{gen.finding} ({gen.source})</p>}
-    </div>
+    <>
+      <Section id="earth" eyebrow="Back on Earth" title="Why flames matter at home" desc="Most of the energy we use still comes from burning things. Space research helps make that cleaner and safer.">
+        <Async state={e} skeleton={<Skeleton lines={4} />}>
+          {(d) => (
+            <div className="bento">
+              {d.combustion.map((m) => (
+                <Card key={m.text} span={6} className="stat-card">
+                  <b className="big">{m.value}{m.unit}</b>
+                  <p>{m.text}</p>
+                  <p className="subtle text-xs">{m.note} · {m.source}</p>
+                </Card>))}
+              {d.spinoffs.map((s) => (
+                <Card key={s.tech} span={4} interactive>
+                  <div className="stack-xs"><span className="spin-year">{s.year} · NASA SPINOFF</span><h3>{s.tech}</h3></div>
+                  <ul className="spin-list">{s.items.slice(0, 3).map((i) => <li key={i.metric}><span className="muted">{i.metric}</span><b>{i.value} {i.unit}{i.derived && '*'}</b></li>)}</ul>
+                  <p className="subtle text-xs">{s.source}{s.items.some((i) => i.derived) && ' · * calculated'}</p>
+                </Card>))}
+            </div>
+          )}
+        </Async>
+      </Section>
+      <Section id="cleaner" eyebrow="Research on the ISS" title="Cleaner, more efficient combustion" desc="ACME experiments burn flames without gravity so scientists can see the chemistry clearly.">
+        <Async state={a} skeleton={<Skeleton lines={4} />}>
+          {(list) => (
+            <div className="tiles">{list.map((x) => (
+              <Card key={x.key} interactive title={x.name} icon="flame">
+                <p className="text-sm">{x.studies}</p>
+                <p className="muted text-sm">{x.link}</p>
+              </Card>))}
+            </div>
+          )}
+        </Async>
+        {gen && <p className="subtle text-sm">{gen.finding} ({gen.source})</p>}
+      </Section>
+    </>
   );
 }

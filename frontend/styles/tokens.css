@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Design tokens. Every color, size, radius, shadow and timing lives here.
+   Breakpoints (used in media queries, CSS vars cannot be used there):
+     sm 480px · md 768px · lg 1024px · xl 1280px
+   ========================================================================== */
+
+:root {
+  /* ---- spacing (4px scale) ---- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 40px;
+  --s-8: 48px;
+  --s-9: 64px;
+  --gutter: 16px;
+  --container: 1280px;
+
+  /* ---- radius ---- */
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* ---- typography ---- */
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 17px;
+  --fs-lg: 20px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-display: clamp(32px, 4.6vw, 56px);
+  --lh-tight: 1.12;
+  --lh-snug: 1.3;
+  --lh-base: 1.55;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --tracking-wide: 0.18em;
+
+  /* ---- motion ---- */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 450ms;
+
+  /* ---- layers ---- */
+  --z-bg: 0;
+  --z-content: 1;
+  --z-header: 20;
+  --z-menu: 30;
+  --z-modal: 50;
+
+  /* ---- dark theme (default) ---- */
+  color-scheme: dark;
+  --surface-0: #050816;
+  --surface-grad:
+    radial-gradient(1200px 700px at 12% -10%, rgba(79, 70, 229, .28), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(236, 72, 153, .14), transparent 60%),
+    radial-gradient(1000px 800px at 50% 120%, rgba(255, 140, 50, .10), transparent 60%),
+    linear-gradient(180deg, #050816 0%, #070b22 45%, #0a0a26 100%);
+  --surface-1: rgba(16, 22, 56, .62);
+  --surface-2: rgba(8, 12, 36, .72);
+  --surface-raised: rgba(26, 34, 82, .92);
+  --border: rgba(140, 160, 255, .16);
+  --border-strong: rgba(140, 160, 255, .34);
+  --highlight: rgba(255, 255, 255, .08);
+  --text: #EEF1FF;
+  --text-muted: #A6ADD8;
+  --text-subtle: #8189BC;
+  --primary: #8AA4FF;
+  --primary-strong: #A9BCFF;
+  --primary-soft: rgba(138, 164, 255, .16);
+  --on-primary: #050816;
+  --accent: #FFAA3B;
+  --accent-soft: rgba(255, 170, 59, .16);
+  --accent-2: #FF5FA8;
+  --on-accent: #2A1600;
+  --grad-flame: linear-gradient(100deg, #FFC44D 0%, #FF8A3D 45%, #FF5FA8 100%);
+  --grad-cta: linear-gradient(135deg, #FFC24D, #FF8A00);
+  --success: #34D399;
+  --warning: #FBBF24;
+  --danger: #FF6B81;
+  --info: #38BDF8;
+  --success-soft: rgba(52, 211, 153, .14);
+  --warning-soft: rgba(251, 191, 36, .14);
+  --danger-soft: rgba(255, 107, 129, .14);
+  --info-soft: rgba(56, 189, 248, .14);
+  --nodata: rgba(150, 160, 200, .14);
+  --scrim: rgba(2, 4, 20, .62);
+  --sh-1: 0 1px 2px rgba(0, 0, 20, .3);
+  --sh-2: 0 10px 30px -8px rgba(0, 0, 30, .55), 0 2px 6px rgba(0, 0, 30, .25);
+  --sh-3: 0 24px 60px -12px rgba(0, 0, 40, .7);
+  --glow-primary: 0 0 0 4px rgba(138, 164, 255, .22);
+  --glow-accent: 0 8px 28px rgba(255, 138, 0, .38);
+
+  /* background scene */
+  --star: #ffffff;
+  --n1: #4C1D95;
+  --n2: #1E3A8A;
+  --n3: #9D174D;
+  --hz: rgba(80, 130, 255, .32);
+  --grid-line: rgba(140, 160, 255, .05);
+
+  /* legacy aliases (canvas code in Globe.jsx reads these) */
+  --bg: var(--surface-0);
+  --bg2: #1d2c6e;
+  --glass: var(--surface-1);
+  --field: var(--surface-2);
+  --line: var(--border);
+  --tx: var(--text);
+  --mu: var(--text-muted);
+  --pr: var(--primary);
+  --pr-tx: var(--on-primary);
+  --acc: var(--accent);
+  --err: var(--danger);
+}
+
+[data-theme=light] {
+  color-scheme: light;
+  --surface-0: #EEF3FF;
+  --surface-grad:
+    radial-gradient(1100px 700px at 10% -10%, rgba(129, 140, 248, .30), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(244, 114, 182, .16), transparent 60%),
+    radial-gradient(1000px 800px at 50% 120%, rgba(251, 146, 60, .14), transparent 60%),
+    linear-gradient(180deg, #F3F6FF 0%, #EAF0FF 50%, #EFEAFF 100%);
+  --surface-1: rgba(255, 255, 255, .78);
+  --surface-2: rgba(246, 248, 255, .96);
+  --surface-raised: #ffffff;
+  --border: rgba(60, 80, 180, .16);
+  --border-strong: rgba(60, 80, 180, .32);
+  --highlight: rgba(255, 255, 255, .9);
+  --text: #0E1438;
+  --text-muted: #46507E;
+  --text-subtle: #5A6392;
+  --primary: #3346D3;
+  --primary-strong: #2434B5;
+  --primary-soft: rgba(51, 70, 211, .10);
+  --on-primary: #ffffff;
+  --accent: #A84A07;
+  --accent-soft: rgba(234, 120, 20, .12);
+  --accent-2: #C0267A;
+  --grad-flame: linear-gradient(100deg, #D97706 0%, #E8590C 45%, #C0267A 100%);
+  --success: #047857;
+  --warning: #B45309;
+  --danger: #C81E3A;
+  --info: #0369A1;
+  --success-soft: rgba(4, 120, 87, .10);
+  --warning-soft: rgba(180, 83, 9, .10);
+  --danger-soft: rgba(200, 30, 58, .08);
+  --info-soft: rgba(3, 105, 161, .10);
+  --nodata: rgba(60, 70, 120, .10);
+  --scrim: rgba(14, 20, 56, .45);
+  --sh-1: 0 1px 2px rgba(20, 30, 90, .08);
+  --sh-2: 0 12px 30px -10px rgba(30, 40, 120, .22), 0 2px 6px rgba(30, 40, 120, .06);
+  --sh-3: 0 24px 60px -16px rgba(30, 40, 120, .35);
+  --glow-primary: 0 0 0 4px rgba(51, 70, 211, .16);
+  --glow-accent: 0 8px 24px rgba(234, 120, 20, .30);
+
+  --star: #4c63e0;
+  --n1: #c4b5fd;
+  --n2: #a5c8fd;
+  --n3: #fbcfe8;
+  --hz: rgba(120, 160, 255, .30);
+  --grid-line: rgba(60, 80, 180, .05);
+  --bg2: #cfdcff;
+}

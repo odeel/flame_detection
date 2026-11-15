@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Globe from './Globe.jsx';
 import { local, useApi } from './api.js';
+import { Badge } from './ui.jsx';
 
 const BODY = { iss: 'earth', gateway: 'moon', moon_base: 'moon', mars_base: 'mars' };
 const ESA = ['France', 'Germany', 'Italy', 'Spain', 'Belgium', 'Netherlands', 'Switzerland', 'Denmark', 'Norway', 'Sweden', 'United Kingdom'];
@@ -34,17 +35,17 @@ export default function HabitatGlobe({ habitat, onAsk }) {
     <div className="globe-wrap">
       <div className="globe-box"><Globe key={body} body={body} highlight={body === 'earth' ? PARTNERS : new Map()} pins={pins} orbit={body === 'earth'} selected={sel} onSelect={setSel} /></div>
       <div className="globe-side">
-        <div className="card info">
+        <div className="card card--inset info">
           <h3>{habitat.name}</h3>
-          <p className="mu sm">{habitat.body} · {habitat.o2_pct}% O₂ · {habitat.pressure_kpa} kPa · {habitat.gravity_g} g {habitat.status === 'assumption' && <span className="tag">assumption</span>}</p>
+          <div className="cluster"><Badge plain>{habitat.body}</Badge><Badge plain>{habitat.o2_pct}% O₂</Badge><Badge plain>{habitat.pressure_kpa} kPa</Badge><Badge plain>{habitat.gravity_g} g</Badge>{habitat.status === 'assumption' && <Badge tone="warning">assumption</Badge>}</div>
           <p>{habitat.description}</p>
-          {habitat.note && <p className="mu sm">{habitat.note}</p>}
-          <p className="mu sm">{habitat.source}</p>
-          <button className="btn" onClick={() => onAsk(`What fire-safety research is relevant to ${habitat.name}?`)}>Ask about this habitat</button>
+          {habitat.note && <p className="muted text-sm">{habitat.note}</p>}
+          <p className="subtle text-xs">{habitat.source}</p>
+          <button type="button" className="btn" onClick={() => onAsk(`What fire-safety research is relevant to ${habitat.name}?`)}>Ask about this habitat</button>
         </div>
-        {info && <div className="card info" aria-live="polite"><b>{info[0]}</b><p className="mu sm">{info[1]}</p><p className="sm">{info[2]}</p></div>}
+        {info && <div className="card card--inset info fade-in" aria-live="polite"><b>{info[0]}</b><p className="mu sm">{info[1]}</p><p className="sm">{info[2]}</p></div>}
         {body === 'moon' && luci.data && (
-          <div className="card info"><h3>{luci.data.title}</h3><p className="mu sm">{luci.data.note}</p>
+          <div className="card card--inset info"><h3>{luci.data.title}</h3><p className="mu sm">{luci.data.note}</p>
             <ul className="sm">{luci.data.points.map((p) => <li key={p}>{p}</li>)}</ul><p className="mu sm">Not reported: {luci.data.notReported} · {luci.data.source}</p></div>)}
         <p className="mu sm">Drag to rotate, scroll to zoom, click a marker{body === 'earth' ? ' or country' : ''}.</p>
       </div>

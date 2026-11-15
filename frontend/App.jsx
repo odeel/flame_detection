@@ -13,10 +13,12 @@ const SEED = ['researcher', 'engineer', 'student'].map((r) => ({ email: `${r}@na
 function Shell({ user, onLogout, common }) {
   const chats = useChats(user);
   const [page, setPage] = useState('home');
+  const [homeKey, setHomeKey] = useState(0);   // bumping it remounts HomePage: resets tabs, detail view and "view as"
+  const goHome = () => { setPage('home'); setHomeKey((k) => k + 1); scrollTo({ top: 0, behavior: 'smooth' }); };
   const ask = (text, habitat) => { chats.ask(text, { habitat }); setPage('chat'); };
   return page === 'chat'
-    ? <ChatPage {...common} user={user} chats={chats} onBack={() => setPage('home')} />
-    : <HomePage {...common} user={user} onLogout={onLogout} onAsk={ask} onOpenChats={() => { chats.setActive(null); setPage('chat'); }} />;
+    ? <ChatPage {...common} user={user} chats={chats} onBack={() => setPage('home')} onHome={goHome} />
+    : <HomePage key={homeKey} {...common} user={user} onLogout={onLogout} onAsk={ask} onHome={goHome} onOpenChats={() => { chats.setActive(null); setPage('chat'); }} />;
 }
 
 export default function App() {

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { api, useApi } from '../api.js';
+import { ErrorState, Skeleton } from '../ui.jsx';
 
 function Text({ id }) {
   const p = useApi(() => api.passage(id), [id]);
-  if (p.loading) return <p className="mu sm">Loading passage…</p>;
-  if (p.error) return <p className="err sm">{p.error}</p>;
+  if (p.loading && !p.data) return <Skeleton lines={4} />;
+  if (p.error) return <ErrorState compact message={p.error} onRetry={p.reload} />;
   return <pre className="passage">{p.data.text}</pre>;
 }
 export default function Passage({ chunkId }) {

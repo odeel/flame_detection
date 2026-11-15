@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { ROLES } from './roles.js';
-import { Corner, RoleChips } from './components.jsx';
+import { AuthHero, Corner } from './components.jsx';
+import { Icon } from './ui.jsx';
 
+const DEMO = ['researcher@nasa.gov', 'engineer@nasa.gov', 'student@nasa.gov'];
+
+// Login does not ask for a role: the account's role (chosen at signup) decides the dashboard.
 export default function LoginPage({ users, onLogin, goSignup, theme, toggle }) {
-  const [role, setRole] = useState('researcher');
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [err, setErr] = useState('');
@@ -11,25 +13,31 @@ export default function LoginPage({ users, onLogin, goSignup, theme, toggle }) {
     e.preventDefault();
     const u = users.find((x) => x.email === email.trim().toLowerCase() && x.password === pw);
     if (!u) return setErr('Wrong email or password.');
-    if (u.role !== role) return setErr(`This account is a ${ROLES[u.role].label} account. Pick that profile.`);
     onLogin(u);
   };
   return (
     <div className="page">
-      <Corner theme={theme} toggle={toggle} />
-      <main className="center">
-        <form className="auth card" onSubmit={submit}>
-          <h1>Nasa flame smart detection</h1>
-          <p className="mu">Select your mission profile</p>
-          <RoleChips value={role} onChange={setRole} />
-          <h2>Welcome back to the fire lab</h2>
-          <label>Email address<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="astronaut@nasa.gov" autoComplete="email" required /></label>
-          <label>Password<input type="password" value={pw} onChange={(e) => setPw(e.target.value)} placeholder="••••••••" autoComplete="current-password" required /></label>
-          {err && <p className="err" role="alert">{err}</p>}
-          <button className="btn" type="submit">Login</button>
-          <p className="mu sm">Demo: researcher@nasa.gov, engineer@nasa.gov or student@nasa.gov, password space123</p>
+      <Corner theme={theme} toggle={toggle} onHome={() => scrollTo({ top: 0, behavior: 'smooth' })}>
+        <button type="button" className="navbtn" onClick={goSignup}>Create account</button>
+      </Corner>
+      <main className="container auth-page">
+        <AuthHero />
+        <form className="auth card fade-in" onSubmit={submit} noValidate>
+          <div className="stack-xs">
+            <p className="eyebrow">Mission access</p>
+            <h2>Welcome back to the fire lab</h2>
+            <p className="muted text-sm">Your dashboard opens with the profile you chose when you signed up.</p>
+          </div>
+          <label className="field">Email address<input type="email" value={email} onChange={(e) => { setEmail(e.target.value); setErr(''); }} placeholder="astronaut@nasa.gov" autoComplete="email" required /></label>
+          <label className="field">Password<input type="password" value={pw} onChange={(e) => { setPw(e.target.value); setErr(''); }} placeholder="••••••••" autoComplete="current-password" required /></label>
+          {err && <p className="field-err" role="alert"><Icon name="alert" />{err}</p>}
+          <button className="cta" type="submit">Log in <Icon name="arrowRight" /></button>
+          <div className="demo">
+            <span>Demo accounts (password <code>space123</code>), click to fill:</span>
+            {DEMO.map((d) => <button type="button" key={d} onClick={() => { setEmail(d); setPw('space123'); setErr(''); }}>{d}</button>)}
+          </div>
+          <p className="foot">No account? <button type="button" className="link" onClick={goSignup}>Sign up</button></p>
         </form>
-        <p className="foot mu">No account? <button className="link" onClick={goSignup}>Sign up</button></p>
       </main>
     </div>
   );

@@ -23,7 +23,7 @@ export default function Backdrop({ satellite = false }) {
   const stars = useMemo(() => [60, 35, 18].map((n) => Array.from({ length: n }, () => `${(Math.random() * 100).toFixed(1)}vw ${(Math.random() * 100).toFixed(1)}vh 0 0 var(--star)`).join(',')), []);
   return (
     <div className="bg" aria-hidden>
-      <div className="nebula n1" /><div className="nebula n2" /><div className="nebula n3" /><div className="horizon" />
+      <div className="bg-grid" /><div className="nebula n1" /><div className="nebula n2" /><div className="nebula n3" /><div className="horizon" />
       {stars.map((s, i) => <i key={i} className={'stars s' + i} style={{ boxShadow: s }} />)}
       {satellite && <><svg className="orbit" viewBox="0 0 600 300" preserveAspectRatio="none"><path d="M0 260 Q300 -60 600 200" fill="none" stroke="var(--line)" strokeDasharray="4 8" /></svg><Satellite /></>}
     </div>
