@@ -1,0 +1,4439 @@
+{
+ "components": {
+  "schemas": {
+   "Body_materials_upload_api_v1_atlas_materials_upload_post": {
+    "properties": {
+     "file": {
+      "description": "CSV, max 5 MB and 200 rows",
+      "format": "binary",
+      "title": "File",
+      "type": "string"
+     }
+    },
+    "required": [
+     "file"
+    ],
+    "title": "Body_materials_upload_api_v1_atlas_materials_upload_post",
+    "type": "object"
+   },
+   "ChatBody": {
+    "properties": {
+     "conversationId": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Conversationid"
+     },
+     "habitat": {
+      "anyOf": [
+       {
+        "maxLength": 100,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Habitat"
+     },
+     "question": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+     },
+     "role": {
+      "anyOf": [
+       {
+        "enum": [
+         "researcher",
+         "engineer",
+         "student"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Role"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "ChatBody",
+    "type": "object"
+   },
+   "DocumentIngestRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "accessions": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "maxItems": 24,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Accessions"
+     },
+     "categories": {
+      "anyOf": [
+       {
+        "items": {
+         "enum": [
+          "Reports",
+          "Science Documents",
+          "Engineering Documents",
+          "Presentations",
+          "Reference Data",
+          "Analyzed Data"
+         ],
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Categories"
+     },
+     "limit": {
+      "anyOf": [
+       {
+        "maximum": 1000.0,
+        "minimum": 1.0,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Limit"
+     },
+     "max_mb": {
+      "default": 40,
+      "exclusiveMinimum": 0.0,
+      "maximum": 200.0,
+      "title": "Max Mb",
+      "type": "number"
+     }
+    },
+    "title": "DocumentIngestRequest",
+    "type": "object"
+   },
+   "EmailBody": {
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email"
+    ],
+    "title": "EmailBody",
+    "type": "object"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "title": "Detail",
+      "type": "array"
+     }
+    },
+    "title": "HTTPValidationError",
+    "type": "object"
+   },
+   "InterpretRequest": {
+    "additionalProperties": true,
+    "properties": {
+     "mode": {
+      "default": "investigation",
+      "enum": [
+       "investigation",
+       "portfolio"
+      ],
+      "title": "Mode",
+      "type": "string"
+     }
+    },
+    "title": "InterpretRequest",
+    "type": "object"
+   },
+   "LoginBody": {
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     },
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     },
+     "role": {
+      "anyOf": [
+       {
+        "enum": [
+         "researcher",
+         "engineer",
+         "student"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Role"
+     }
+    },
+    "required": [
+     "email",
+     "password"
+    ],
+    "title": "LoginBody",
+    "type": "object"
+   },
+   "LoginRequest": {
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     },
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email",
+     "password"
+    ],
+    "title": "LoginRequest",
+    "type": "object"
+   },
+   "ResendRequest": {
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email"
+    ],
+    "title": "ResendRequest",
+    "type": "object"
+   },
+   "ResetBody": {
+    "properties": {
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     },
+     "token": {
+      "maxLength": 200,
+      "minLength": 10,
+      "title": "Token",
+      "type": "string"
+     }
+    },
+    "required": [
+     "token",
+     "password"
+    ],
+    "title": "ResetBody",
+    "type": "object"
+   },
+   "ResetRequest": {
+    "properties": {
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     },
+     "token": {
+      "maxLength": 200,
+      "minLength": 10,
+      "title": "Token",
+      "type": "string"
+     }
+    },
+    "required": [
+     "token",
+     "password"
+    ],
+    "title": "ResetRequest",
+    "type": "object"
+   },
+   "RetrieveRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "inv_ids": {
+      "anyOf": [
+       {
+        "items": {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        "maxItems": 24,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Inv Ids"
+     },
+     "k": {
+      "anyOf": [
+       {
+        "maximum": 50.0,
+        "minimum": 1.0,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "K"
+     },
+     "mode": {
+      "anyOf": [
+       {
+        "enum": [
+         "dense",
+         "keyword",
+         "hybrid",
+         "hybrid+rerank"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Mode"
+     },
+     "question": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "RetrieveRequest",
+    "type": "object"
+   },
+   "SignupBody": {
+    "properties": {
+     "email": {
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     },
+     "name": {
+      "default": "",
+      "maxLength": 100,
+      "title": "Name",
+      "type": "string"
+     },
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     },
+     "role": {
+      "enum": [
+       "researcher",
+       "engineer",
+       "student"
+      ],
+      "title": "Role",
+      "type": "string"
+     }
+    },
+    "required": [
+     "email",
+     "password",
+     "role"
+    ],
+    "title": "SignupBody",
+    "type": "object"
+   },
+   "SignupRequest": {
+    "properties": {
+     "email": {
+      "examples": [
+       "ada@example.org"
+      ],
+      "maxLength": 254,
+      "title": "Email",
+      "type": "string"
+     },
+     "name": {
+      "default": "",
+      "examples": [
+       "Ada"
+      ],
+      "maxLength": 100,
+      "title": "Name",
+      "type": "string"
+     },
+     "password": {
+      "maxLength": 128,
+      "title": "Password",
+      "type": "string"
+     },
+     "profile": {
+      "description": "Mission profile chosen at registration",
+      "enum": [
+       "researcher",
+       "engineer",
+       "student"
+      ],
+      "title": "Profile",
+      "type": "string"
+     }
+    },
+    "required": [
+     "profile",
+     "email",
+     "password"
+    ],
+    "title": "SignupRequest",
+    "type": "object"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "title": "Location",
+      "type": "array"
+     },
+     "msg": {
+      "title": "Message",
+      "type": "string"
+     },
+     "type": {
+      "title": "Error Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError",
+    "type": "object"
+   },
+   "Weights": {
+    "additionalProperties": false,
+    "properties": {
+     "atmosphere": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Atmosphere"
+     },
+     "data": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Data"
+     },
+     "gravity": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gravity"
+     },
+     "scale": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Scale"
+     },
+     "topic": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Topic"
+     },
+     "ventilation": {
+      "anyOf": [
+       {
+        "maximum": 5.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ventilation"
+     }
+    },
+    "title": "Weights",
+    "type": "object"
+   },
+   "WhatIfRequest": {
+    "additionalProperties": false,
+    "description": "Values mode (free): habitat_id + changed values. Text mode (uses an LLM): text, e.g. \"Mars base raises oxygen to 30 %\".",
+    "properties": {
+     "co2_pct": {
+      "anyOf": [
+       {
+        "maximum": 100.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Co2 Pct"
+     },
+     "explain": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Explain"
+     },
+     "fuel": {
+      "anyOf": [
+       {
+        "maxLength": 40,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fuel"
+     },
+     "gravity_g": {
+      "anyOf": [
+       {
+        "maximum": 10.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gravity G"
+     },
+     "habitat_id": {
+      "anyOf": [
+       {
+        "pattern": "^[a-z][a-z0-9_]{1,39}$",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       "mars_base"
+      ],
+      "title": "Habitat Id"
+     },
+     "he_pct": {
+      "anyOf": [
+       {
+        "maximum": 100.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "He Pct"
+     },
+     "o2_pct": {
+      "anyOf": [
+       {
+        "exclusiveMinimum": 0.0,
+        "maximum": 100.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "O2 Pct"
+     },
+     "orness": {
+      "anyOf": [
+       {
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Orness"
+     },
+     "pressure_kpa": {
+      "anyOf": [
+       {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pressure Kpa"
+     },
+     "priorities": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "number"
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Priorities"
+     },
+     "text": {
+      "anyOf": [
+       {
+        "maxLength": 500,
+        "minLength": 3,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       "Mars base raises oxygen to 30 %"
+      ],
+      "title": "Text"
+     }
+    },
+    "title": "WhatIfRequest",
+    "type": "object"
+   },
+   "app__routers__atlas__AskRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "check": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Ask FlameAtlas to remove sentences the sources do not support",
+      "title": "Check"
+     },
+     "graph": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Graph-RAG: add knowledge-graph facts as an extra source",
+      "title": "Graph"
+     },
+     "habitat": {
+      "anyOf": [
+       {
+        "pattern": "^[a-z][a-z0-9_]{1,39}$",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       "mars_base"
+      ],
+      "title": "Habitat"
+     },
+     "inv_ids": {
+      "anyOf": [
+       {
+        "items": {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        "maxItems": 24,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Inv Ids"
+     },
+     "k": {
+      "anyOf": [
+       {
+        "maximum": 20.0,
+        "minimum": 1.0,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       5
+      ],
+      "title": "K"
+     },
+     "question": {
+      "examples": [
+       "Which materials were burned in the SAFFIRE-II experiment?"
+      ],
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "AskRequest",
+    "type": "object"
+   },
+   "app__routers__atlas__PredictRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "co2_pct": {
+      "anyOf": [
+       {
+        "maximum": 100.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Co2 Pct"
+     },
+     "d0_mm": {
+      "anyOf": [
+       {
+        "exclusiveMinimum": 0.0,
+        "maximum": 50.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "D0 Mm"
+     },
+     "fuel": {
+      "examples": [
+       "Heptane"
+      ],
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Fuel",
+      "type": "string"
+     },
+     "habitat_id": {
+      "anyOf": [
+       {
+        "pattern": "^[a-z][a-z0-9_]{1,39}$",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Instead of o2_pct + pressure_kpa: use this habitat's air",
+      "title": "Habitat Id"
+     },
+     "he_pct": {
+      "anyOf": [
+       {
+        "maximum": 100.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "He Pct"
+     },
+     "o2_pct": {
+      "anyOf": [
+       {
+        "exclusiveMinimum": 0.0,
+        "maximum": 100.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       21
+      ],
+      "title": "O2 Pct"
+     },
+     "pressure_kpa": {
+      "anyOf": [
+       {
+        "exclusiveMinimum": 0.0,
+        "maximum": 1000.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       101.3
+      ],
+      "title": "Pressure Kpa"
+     }
+    },
+    "required": [
+     "fuel"
+    ],
+    "title": "PredictRequest",
+    "type": "object"
+   },
+   "app__routers__atlas__RankRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "habitat_id": {
+      "examples": [
+       "mars_base"
+      ],
+      "pattern": "^[a-z][a-z0-9_]{1,39}$",
+      "title": "Habitat Id",
+      "type": "string"
+     },
+     "orness": {
+      "anyOf": [
+       {
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       0.5
+      ],
+      "title": "Orness"
+     },
+     "pairwise": {
+      "anyOf": [
+       {
+        "items": {
+         "items": {
+          "type": "number"
+         },
+         "type": "array"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Instead of priorities: 5x5 AHP matrix in the order flammability, detection, suppression, physics, closeness",
+      "title": "Pairwise"
+     },
+     "priorities": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "number"
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Importance of each criterion: flammability, detection, suppression, physics, closeness",
+      "examples": [
+       {
+        "closeness": 3,
+        "detection": 2,
+        "flammability": 3,
+        "physics": 1,
+        "suppression": 3
+       }
+      ],
+      "title": "Priorities"
+     },
+     "top": {
+      "anyOf": [
+       {
+        "maximum": 50.0,
+        "minimum": 1.0,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "examples": [
+       5
+      ],
+      "title": "Top"
+     }
+    },
+    "required": [
+     "habitat_id"
+    ],
+    "title": "RankRequest",
+    "type": "object"
+   },
+   "app__routers__models__PredictRequest": {
+    "properties": {
+     "inputs": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "number"
+        },
+        "type": "object"
+       },
+       {
+        "items": {
+         "additionalProperties": {
+          "type": "number"
+         },
+         "type": "object"
+        },
+        "maxItems": 500,
+        "type": "array"
+       }
+      ],
+      "description": "Feature values by key (one object or a batch). Missing features use the training medians.",
+      "examples": [
+       {
+        "o2": 0.21,
+        "pressure_atm": 1
+       }
+      ],
+      "title": "Inputs"
+     }
+    },
+    "required": [
+     "inputs"
+    ],
+    "title": "PredictRequest",
+    "type": "object"
+   },
+   "app__schemas__AskRequest": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "habitat": "moonbase",
+      "question": "How does oxygen concentration affect flame spread over thin solids in microgravity?"
+     }
+    ],
+    "properties": {
+     "accessions": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "maxItems": 24,
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Restrict retrieval to these PSI investigations, e.g. [\"PSI-69\"]",
+      "title": "Accessions"
+     },
+     "habitat": {
+      "anyOf": [
+       {
+        "enum": [
+         "spacecraft",
+         "station",
+         "moonbase",
+         "rover",
+         "marsbase",
+         "spacesuit"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Boost passages from investigations relevant to this habitat",
+      "title": "Habitat"
+     },
+     "k": {
+      "default": 6,
+      "description": "Passages to retrieve",
+      "maximum": 12.0,
+      "minimum": 1.0,
+      "title": "K",
+      "type": "integer"
+     },
+     "mode": {
+      "default": "auto",
+      "description": "auto uses Claude when configured, else extractive",
+      "enum": [
+       "auto",
+       "extractive",
+       "claude"
+      ],
+      "title": "Mode",
+      "type": "string"
+     },
+     "question": {
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "AskRequest",
+    "type": "object"
+   },
+   "app__schemas__RankRequest": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "habitat": "moonbase",
+      "limit": 5
+     }
+    ],
+    "properties": {
+     "habitat": {
+      "anyOf": [
+       {
+        "enum": [
+         "spacecraft",
+         "station",
+         "moonbase",
+         "rover",
+         "marsbase",
+         "spacesuit"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Crew environment to rank for; omit for a general spacecraft fire-safety ranking",
+      "title": "Habitat"
+     },
+     "limit": {
+      "default": 25,
+      "maximum": 100.0,
+      "minimum": 1.0,
+      "title": "Limit",
+      "type": "integer"
+     },
+     "min_tests": {
+      "default": 0,
+      "description": "Only investigations with at least this many normalized test points",
+      "maximum": 10000.0,
+      "minimum": 0.0,
+      "title": "Min Tests",
+      "type": "integer"
+     },
+     "pillar": {
+      "anyOf": [
+       {
+        "enum": [
+         "prevention",
+         "detection",
+         "suppression"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pillar"
+     },
+     "query": {
+      "anyOf": [
+       {
+        "maxLength": 300,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Custom topic query for the topical-relevance component",
+      "title": "Query"
+     },
+     "weights": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/Weights"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Override rubric weights (they are normalized)"
+     }
+    },
+    "title": "RankRequest",
+    "type": "object"
+   }
+  }
+ },
+ "info": {
+  "description": "SI-powered fire-safety insights from NASA Physical Sciences Informatics (PSI) microgravity combustion data: habitat rankings, normalized test rows, cited answers from PSI documents and printable briefs.",
+  "title": "Flame in Freefall API (FastAPI)",
+  "version": "2.1.0"
+ },
+ "openapi": "3.1.0",
+ "paths": {
+  "/api/auth/forgot": {
+   "post": {
+    "operationId": "forgot_password_api_auth_forgot_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EmailBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Email a password-reset link (same answer whether or not the account exists)",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/login": {
+   "post": {
+    "operationId": "login_api_auth_login_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Log in; returns a bearer token. 401 wrong credentials, 403 role mismatch or email not verified",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/logout": {
+   "post": {
+    "operationId": "logout_api_auth_logout_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Revoke the bearer token",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/me": {
+   "get": {
+    "operationId": "me_api_auth_me_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "The signed-in account",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/resend": {
+   "post": {
+    "operationId": "resend_verification_api_auth_resend_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/EmailBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Send a new verification email (same answer whether or not the account exists)",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/reset": {
+   "post": {
+    "operationId": "reset_password_api_auth_reset_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResetBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Choose a new password with the emailed link's token; signs the account out everywhere",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/auth/signup": {
+   "post": {
+    "operationId": "signup_api_auth_signup_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SignupBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create an account with a role; a verification email is sent (no token until verified)",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/chat": {
+   "post": {
+    "operationId": "chat_api_chat_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChatBody"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Ask the RAG assistant; answers only from indexed NASA data, with citations. Signed in: saved to a conversation",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/conversations": {
+   "get": {
+    "operationId": "conversations_api_conversations_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "The signed-in user's conversations, newest first",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/conversations/{conv_id}": {
+   "delete": {
+    "operationId": "delete_conversation_api_conversations__conv_id__delete",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "conv_id",
+      "required": true,
+      "schema": {
+       "title": "Conv Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Delete a conversation",
+    "tags": [
+     "frontend"
+    ]
+   },
+   "get": {
+    "operationId": "conversation_api_conversations__conv_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "conv_id",
+      "required": true,
+      "schema": {
+       "title": "Conv Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "One conversation with its messages",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/habitats": {
+   "get": {
+    "operationId": "habitats_api_habitats_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Crew habitats and their design atmospheres",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/investigations": {
+   "get": {
+    "operationId": "investigations_api_investigations_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Investigation catalog in the dashboard's shape",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/investigations/{inv_id}/tests": {
+   "get": {
+    "operationId": "tests_api_investigations__inv_id__tests_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "inv_id",
+      "required": true,
+      "schema": {
+       "title": "Inv Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 2000,
+       "maximum": 5000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "One row per test run of an investigation (from NASA PSI test matrices)",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/kpis": {
+   "get": {
+    "operationId": "kpis_api_kpis_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "role",
+      "required": false,
+      "schema": {
+       "default": "researcher",
+       "enum": [
+        "researcher",
+        "engineer",
+        "student"
+       ],
+       "title": "Role",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Headline numbers for a role, computed from the database",
+    "tags": [
+     "frontend"
+    ]
+   }
+  },
+  "/api/v1/admin/cache/clear": {
+   "post": {
+    "operationId": "clear_api_v1_admin_cache_clear_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Clear the response cache",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/derived/rebuild": {
+   "post": {
+    "operationId": "rebuild_api_v1_admin_derived_rebuild_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Rebuild test rows, metadata passages, summaries and briefs now",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/documents/ingest": {
+   "post": {
+    "operationId": "ingest_documents_api_v1_admin_documents_ingest_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/DocumentIngestRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Download PSI PDF documents (resumable), parse them into page passages and index them",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/documents/reindex": {
+   "post": {
+    "operationId": "reindex_api_v1_admin_documents_reindex_post",
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Re-parse PDFs already on disk (no network)",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/ingest": {
+   "post": {
+    "operationId": "ingest_api_v1_admin_ingest_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Pull the live NASA PSI catalog into PostgreSQL, then retrain models (runs scripts/fetch-psi.mjs)",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/jobs": {
+   "get": {
+    "operationId": "jobs_api_v1_admin_jobs_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 30,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Recent jobs (ingest, train, documents, summaries)",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/summaries/regenerate": {
+   "post": {
+    "operationId": "regenerate_api_v1_admin_summaries_regenerate_post",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "claude",
+      "required": false,
+      "schema": {
+       "default": false,
+       "title": "Claude",
+       "type": "boolean"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Regenerate stored summaries and briefs; claude=true adds grounded LLM summaries (needs ANTHROPIC_API_KEY)",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/admin/train": {
+   "post": {
+    "operationId": "train_api_v1_admin_train_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Retrain all models on the PSI data in PostgreSQL (runs scripts/train.mjs)",
+    "tags": [
+     "admin"
+    ]
+   }
+  },
+  "/api/v1/ask": {
+   "post": {
+    "operationId": "ask_api_v1_ask_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__schemas__AskRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Cited answer from NASA PSI documents (retrieval-augmented; never invents numbers)",
+    "tags": [
+     "ask"
+    ]
+   }
+  },
+  "/api/v1/atlas/ask": {
+   "post": {
+    "operationId": "ask_api_v1_atlas_ask_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__atlas__AskRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Ask a question; answered from NASA PSI passages with citations (RAG, uses an LLM)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/compare": {
+   "get": {
+    "operationId": "compare_api_v1_atlas_compare_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "ids",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-69,PSI-99"
+       ],
+       "pattern": "^PSI-\\d{1,5}(,PSI-\\d{1,5}){1,5}$",
+       "title": "Ids",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Several investigations side by side (ids=PSI-69,PSI-99)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/flammap/{habitat_id}": {
+   "get": {
+    "operationId": "flammap_api_v1_atlas_flammap__habitat_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "habitat_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "mars_base"
+       ],
+       "pattern": "^[a-z][a-z0-9_]{1,39}$",
+       "title": "Habitat Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "fuel",
+      "required": false,
+      "schema": {
+       "default": "Heptane",
+       "maxLength": 40,
+       "minLength": 1,
+       "title": "Fuel",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "n",
+      "required": false,
+      "schema": {
+       "default": 60,
+       "maximum": 120,
+       "minimum": 10,
+       "title": "N",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Flammability map: predicted droplet-flame outcome over an O2 x pressure grid around a habitat",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/fuels": {
+   "get": {
+    "operationId": "fuels_api_v1_atlas_fuels_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Fuels the droplet prediction model supports",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/gaps/{habitat_id}": {
+   "get": {
+    "operationId": "gaps_api_v1_atlas_gaps__habitat_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "habitat_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "mars_base"
+       ],
+       "pattern": "^[a-z][a-z0-9_]{1,39}$",
+       "title": "Habitat Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "n",
+      "required": false,
+      "schema": {
+       "default": 10,
+       "maximum": 30,
+       "minimum": 1,
+       "title": "N",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "explain",
+      "required": false,
+      "schema": {
+       "default": false,
+       "title": "Explain",
+       "type": "boolean"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Test gaps: conditions near a habitat that no NASA test covered (explain=true uses an LLM)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/graph": {
+   "get": {
+    "operationId": "graph_api_v1_atlas_graph_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "entity",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 80,
+         "minLength": 1,
+         "pattern": "^[\\w .:+()/,%-]+$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "examples": [
+        "helium"
+       ],
+       "title": "Entity"
+      }
+     },
+     {
+      "in": "query",
+      "name": "investigation",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "examples": [
+        "PSI-99"
+       ],
+       "title": "Investigation"
+      }
+     },
+     {
+      "in": "query",
+      "name": "types",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 120,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "examples": [
+        "material,diluent"
+       ],
+       "title": "Types"
+      }
+     },
+     {
+      "in": "query",
+      "name": "findings",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "boolean"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Findings"
+      }
+     },
+     {
+      "in": "query",
+      "name": "radius",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 2,
+         "minimum": 1,
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Radius"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Knowledge graph (investigations, materials, diluents, instruments, findings...): nodes and edges",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/graph/facts": {
+   "get": {
+    "operationId": "graph_facts_api_v1_atlas_graph_facts_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+       "examples": [
+        "Which fuels were tested both with CO2 and helium?"
+       ],
+       "maxLength": 500,
+       "minLength": 3,
+       "title": "Q",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Knowledge-graph facts for a question (what Graph-RAG adds to /ask)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/habitats": {
+   "get": {
+    "operationId": "habitats_api_v1_atlas_habitats_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Habitats with their cabin atmospheres (ISS, Gateway, Moon base, Mars base)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/investigation/{inv_id}": {
+   "get": {
+    "operationId": "investigation_api_v1_atlas_investigation__inv_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "inv_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-99"
+       ],
+       "pattern": "^PSI-\\d{1,5}$",
+       "title": "Inv Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "One investigation with its extracted experiment rows",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/investigations": {
+   "get": {
+    "operationId": "investigations_api_v1_atlas_investigations_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "The 24 PSI investigations with plain-language summaries",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/materials/report/{name}": {
+   "get": {
+    "operationId": "materials_report_api_v1_atlas_materials_report__name__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$",
+       "title": "Name",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "text/html": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "HTML report of an upload (summary cards, charts, materials table)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/materials/report/{name}/pdf": {
+   "get": {
+    "operationId": "materials_report_pdf_api_v1_atlas_materials_report__name__pdf_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,119}$",
+       "title": "Name",
+       "type": "string"
+      }
+     },
+     {
+      "description": "true: ask the browser to save the file instead of opening it",
+      "in": "query",
+      "name": "download",
+      "required": false,
+      "schema": {
+       "default": false,
+       "description": "true: ask the browser to save the file instead of opening it",
+       "title": "Download",
+       "type": "boolean"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/pdf": {}
+      },
+      "description": "The report as a PDF file (report-name-fire-risk-report.pdf)"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "The materials risk report as a downloadable PDF",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/materials/upload": {
+   "post": {
+    "operationId": "materials_upload_api_v1_atlas_materials_upload_post",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "report",
+      "required": false,
+      "schema": {
+       "default": true,
+       "title": "Report",
+       "type": "boolean"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "$ref": "#/components/schemas/Body_materials_upload_api_v1_atlas_materials_upload_post"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Fire-risk analysis of a materials CSV (one row per material, an 'id' column); uses an LLM for new rows",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/passage": {
+   "get": {
+    "operationId": "passage_api_v1_atlas_passage_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-99::936617f3::0002"
+       ],
+       "pattern": "^PSI-\\d{1,5}::[0-9a-f]{4,64}::\\d{1,6}$",
+       "title": "Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Full source text of a passage (id like PSI-99::936617f3::0002)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/predict": {
+   "post": {
+    "operationId": "predict_api_v1_atlas_predict_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__atlas__PredictRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Predict a droplet flame (extinction, fuel burned, burning rate) for a fuel and air, or a habitat",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/rank": {
+   "post": {
+    "operationId": "rank_api_v1_atlas_rank_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__atlas__RankRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Rank investigations for a habitat (AHP weights + OWA aggregation), with reasons",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/retrieve": {
+   "post": {
+    "operationId": "retrieve_api_v1_atlas_retrieve_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RetrieveRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Search NASA PSI passages without an LLM (dense, keyword, hybrid, hybrid+rerank)",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/status": {
+   "get": {
+    "operationId": "status_api_v1_atlas_status_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Whether FlameAtlas is configured and reachable",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/atlas/whatif": {
+   "post": {
+    "operationId": "whatif_api_v1_atlas_whatif_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/WhatIfRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "What if a habitat's air changes? Values mode is free; text mode uses an LLM",
+    "tags": [
+     "atlas"
+    ]
+   }
+  },
+  "/api/v1/auth/forgot": {
+   "post": {
+    "operationId": "forgot_api_v1_auth_forgot_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResendRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Email a password-reset link (same answer whether or not the account exists)",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/links": {
+   "get": {
+    "operationId": "links_api_v1_auth_links_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Where the account pages send people next (login page of the React dashboard or this site)",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/login": {
+   "post": {
+    "operationId": "login_api_v1_auth_login_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LoginRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Sign in with email and password; sets the session cookie",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/logout": {
+   "post": {
+    "operationId": "logout_api_v1_auth_logout_post",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Sign out (revokes the session)",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/me": {
+   "get": {
+    "operationId": "me_api_v1_auth_me_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "The signed-in user, or null",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/resend": {
+   "post": {
+    "operationId": "resend_api_v1_auth_resend_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResendRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Send a new verification email (same answer whether or not the account exists)",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/reset": {
+   "post": {
+    "operationId": "reset_api_v1_auth_reset_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResetRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Set a new password with a reset link; signs out every session",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/reset/check": {
+   "get": {
+    "operationId": "reset_check_api_v1_auth_reset_check_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+       "maxLength": 200,
+       "minLength": 10,
+       "title": "Token",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Whether a password-reset link is still valid",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/signup": {
+   "post": {
+    "operationId": "signup_api_v1_auth_signup_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SignupRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create an account and send a verification email",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/auth/verify": {
+   "get": {
+    "operationId": "verify_api_v1_auth_verify_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+       "maxLength": 200,
+       "minLength": 10,
+       "title": "Token",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "307": {
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Open the link from the verification email; redirects to the 'Email verified' page",
+    "tags": [
+     "auth"
+    ]
+   }
+  },
+  "/api/v1/brief/{habitat}": {
+   "get": {
+    "operationId": "brief_api_v1_brief__habitat__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "habitat",
+      "required": true,
+      "schema": {
+       "enum": [
+        "spacecraft",
+        "station",
+        "moonbase",
+        "rover",
+        "marsbase",
+        "spacesuit"
+       ],
+       "title": "Habitat",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "format",
+      "required": false,
+      "schema": {
+       "default": "json",
+       "enum": [
+        "json",
+        "md",
+        "html"
+       ],
+       "title": "Format",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Recompute instead of serving the stored, pre-generated brief",
+      "in": "query",
+      "name": "fresh",
+      "required": false,
+      "schema": {
+       "default": false,
+       "description": "Recompute instead of serving the stored, pre-generated brief",
+       "title": "Fresh",
+       "type": "boolean"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       },
+       "text/html": {},
+       "text/markdown": {}
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Printable fire-safety brief for a habitat (json, md or html)",
+    "tags": [
+     "briefs"
+    ]
+   }
+  },
+  "/api/v1/documents": {
+   "get": {
+    "operationId": "documents_api_v1_documents_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "accession",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Accession"
+      }
+     },
+     {
+      "in": "query",
+      "name": "kind",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "pdf",
+          "metadata"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Kind"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Parsed NASA PSI documents and metadata records",
+    "tags": [
+     "documents"
+    ]
+   }
+  },
+  "/api/v1/documents/{accession}/{file_name}/pages/{page}": {
+   "get": {
+    "operationId": "document_page_api_v1_documents__accession___file_name__pages__page__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "accession",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-69"
+       ],
+       "pattern": "^PSI-\\d{1,5}$",
+       "title": "Accession",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "file_name",
+      "required": true,
+      "schema": {
+       "title": "File Name",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "page",
+      "required": true,
+      "schema": {
+       "maximum": 5000,
+       "minimum": 1,
+       "title": "Page",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Passages of one document page (to check a citation)",
+    "tags": [
+     "documents"
+    ]
+   }
+  },
+  "/api/v1/habitats": {
+   "get": {
+    "operationId": "habitats_api_v1_habitats_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Crew environments with design atmospheres and evidence coverage",
+    "tags": [
+     "habitats"
+    ]
+   }
+  },
+  "/api/v1/habitats/{habitat}": {
+   "get": {
+    "operationId": "habitat_api_v1_habitats__habitat__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "habitat",
+      "required": true,
+      "schema": {
+       "enum": [
+        "spacecraft",
+        "station",
+        "moonbase",
+        "rover",
+        "marsbase",
+        "spacesuit"
+       ],
+       "title": "Habitat",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 10,
+       "maximum": 100,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "One habitat: ranked investigations with rubric components and reasons",
+    "tags": [
+     "habitats"
+    ]
+   }
+  },
+  "/api/v1/health": {
+   "get": {
+    "operationId": "health_api_v1_health_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Service health, data counts, caches and AI configuration",
+    "tags": [
+     "system"
+    ]
+   }
+  },
+  "/api/v1/interpret": {
+   "post": {
+    "operationId": "interpret_route_api_v1_interpret_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/InterpretRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/plain": {}
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Streamed Claude interpretation of an investigation or the portfolio (requires ANTHROPIC_API_KEY)",
+    "tags": [
+     "ask"
+    ]
+   }
+  },
+  "/api/v1/investigations": {
+   "get": {
+    "operationId": "investigations_api_v1_investigations_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "habitat",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "spacecraft",
+          "station",
+          "moonbase",
+          "rover",
+          "marsbase",
+          "spacesuit"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Habitat"
+      }
+     },
+     {
+      "in": "query",
+      "name": "pillar",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "prevention",
+          "detection",
+          "suppression"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Pillar"
+      }
+     },
+     {
+      "description": "Topic query (BM25 over PSI text)",
+      "in": "query",
+      "name": "q",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 200,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Topic query (BM25 over PSI text)",
+       "title": "Q"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 50,
+       "maximum": 100,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "PSI combustion investigations, ranked (optionally for a habitat)",
+    "tags": [
+     "investigations"
+    ]
+   }
+  },
+  "/api/v1/investigations/{accession}": {
+   "get": {
+    "operationId": "investigation_api_v1_investigations__accession__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "accession",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-69"
+       ],
+       "pattern": "^PSI-\\d{1,5}$",
+       "title": "Accession",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "One investigation: PSI record, stored summaries, test envelope, documents",
+    "tags": [
+     "investigations"
+    ]
+   }
+  },
+  "/api/v1/livez": {
+   "get": {
+    "operationId": "livez_api_v1_livez_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Liveness and readiness (one database round-trip)",
+    "tags": [
+     "system"
+    ]
+   }
+  },
+  "/api/v1/models": {
+   "get": {
+    "operationId": "models_api_v1_models_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Active models: model cards with metrics and explanations",
+    "tags": [
+     "models"
+    ]
+   }
+  },
+  "/api/v1/models/{model_id}": {
+   "get": {
+    "operationId": "model_api_v1_models__model_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "model_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "flex-extinction"
+       ],
+       "pattern": "^[a-z0-9-]{1,64}$",
+       "title": "Model Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "include",
+      "required": false,
+      "schema": {
+       "default": "none",
+       "enum": [
+        "model",
+        "none"
+       ],
+       "title": "Include",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "version",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 1,
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Version"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Model artifact (include=model adds the serialized model for client-side prediction)",
+    "tags": [
+     "models"
+    ]
+   }
+  },
+  "/api/v1/models/{model_id}/predict": {
+   "post": {
+    "operationId": "predict_api_v1_models__model_id__predict_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "model_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "flex-extinction"
+       ],
+       "pattern": "^[a-z0-9-]{1,64}$",
+       "title": "Model Id",
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__routers__models__PredictRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Predict with the active model version (predictions are logged)",
+    "tags": [
+     "models"
+    ]
+   }
+  },
+  "/api/v1/models/{model_id}/versions": {
+   "get": {
+    "operationId": "model_versions_api_v1_models__model_id__versions_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "model_id",
+      "required": true,
+      "schema": {
+       "examples": [
+        "flex-extinction"
+       ],
+       "pattern": "^[a-z0-9-]{1,64}$",
+       "title": "Model Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Training history of a model",
+    "tags": [
+     "models"
+    ]
+   }
+  },
+  "/api/v1/rank": {
+   "post": {
+    "operationId": "rank_api_v1_rank_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/app__schemas__RankRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Rank investigations by the transparent rubric (habitat, weights, filters)",
+    "tags": [
+     "investigations"
+    ]
+   }
+  },
+  "/api/v1/summaries/{accession}": {
+   "get": {
+    "operationId": "get_summaries_api_v1_summaries__accession__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "accession",
+      "required": true,
+      "schema": {
+       "examples": [
+        "PSI-69"
+       ],
+       "pattern": "^PSI-\\d{1,5}$",
+       "title": "Accession",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Pre-generated summaries of an investigation (all generators)",
+    "tags": [
+     "briefs"
+    ]
+   }
+  },
+  "/api/v1/tests": {
+   "get": {
+    "operationId": "tests_api_v1_tests_get",
+    "parameters": [
+     {
+      "description": "Substring, case-insensitive (e.g. ethylene, PMMA, methanol)",
+      "in": "query",
+      "name": "fuel",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 80,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Substring, case-insensitive (e.g. ethylene, PMMA, methanol)",
+       "title": "Fuel"
+      }
+     },
+     {
+      "description": "O2 vol %; matches within o2_tol",
+      "in": "query",
+      "name": "o2",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "exclusiveMinimum": 0,
+         "maximum": 100,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "O2 vol %; matches within o2_tol",
+       "title": "O2"
+      }
+     },
+     {
+      "in": "query",
+      "name": "o2_tol",
+      "required": false,
+      "schema": {
+       "default": 1.0,
+       "maximum": 50,
+       "minimum": 0,
+       "title": "O2 Tol",
+       "type": "number"
+      }
+     },
+     {
+      "in": "query",
+      "name": "o2_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 100,
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "O2 Min"
+      }
+     },
+     {
+      "in": "query",
+      "name": "o2_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 100,
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "O2 Max"
+      }
+     },
+     {
+      "description": "kPa",
+      "in": "query",
+      "name": "pressure_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "kPa",
+       "title": "Pressure Min"
+      }
+     },
+     {
+      "in": "query",
+      "name": "pressure_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Pressure Max"
+      }
+     },
+     {
+      "description": "cm/s",
+      "in": "query",
+      "name": "flow_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "cm/s",
+       "title": "Flow Min"
+      }
+     },
+     {
+      "in": "query",
+      "name": "flow_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Flow Max"
+      }
+     },
+     {
+      "description": "Substring of the outcome text, e.g. 'Hot ignition: Yes'",
+      "in": "query",
+      "name": "outcome",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 80,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Substring of the outcome text, e.g. 'Hot ignition: Yes'",
+       "title": "Outcome"
+      }
+     },
+     {
+      "in": "query",
+      "name": "accession",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Accession"
+      }
+     },
+     {
+      "in": "query",
+      "name": "diluent",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "enum": [
+          "CO2",
+          "He",
+          "N2"
+         ],
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Diluent"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Normalized ISS test rows: filter by fuel, O2, pressure, flow, outcome",
+    "tags": [
+     "tests"
+    ]
+   }
+  },
+  "/api/v1/tests.csv": {
+   "get": {
+    "operationId": "tests_csv_api_v1_tests_csv_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "fuel",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 80,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Fuel"
+      }
+     },
+     {
+      "in": "query",
+      "name": "o2_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 100,
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "O2 Min"
+      }
+     },
+     {
+      "in": "query",
+      "name": "o2_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maximum": 100,
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "O2 Max"
+      }
+     },
+     {
+      "in": "query",
+      "name": "pressure_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Pressure Min"
+      }
+     },
+     {
+      "in": "query",
+      "name": "pressure_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "minimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Pressure Max"
+      }
+     },
+     {
+      "in": "query",
+      "name": "outcome",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 80,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Outcome"
+      }
+     },
+     {
+      "in": "query",
+      "name": "accession",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^PSI-\\d{1,5}$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Accession"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Download filtered test rows as CSV (streamed)",
+    "tags": [
+     "tests"
+    ]
+   }
+  },
+  "/api/v1/tests/facets": {
+   "get": {
+    "operationId": "test_facets_api_v1_tests_facets_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Fuels, diluents, ranges and per-investigation counts of the test rows",
+    "tags": [
+     "tests"
+    ]
+   }
+  }
+ },
+ "tags": [
+  {
+   "description": "Health and liveness",
+   "name": "system"
+  },
+  {
+   "description": "Accounts: sign up, email verification, sign in and sign out (session cookie)",
+   "name": "auth"
+  },
+  {
+   "description": "Crew environments from the challenge brief and their evidence coverage",
+   "name": "habitats"
+  },
+  {
+   "description": "NASA PSI combustion investigations and rubric ranking",
+   "name": "investigations"
+  },
+  {
+   "description": "Normalized ISS test rows extracted from PSI test matrices",
+   "name": "tests"
+  },
+  {
+   "description": "Models trained on PSI test matrices: cards, version history and predictions",
+   "name": "models"
+  },
+  {
+   "description": "Retrieval-augmented, cited answers from PSI documents",
+   "name": "ask"
+  },
+  {
+   "description": "Printable habitat briefs and pre-generated summaries",
+   "name": "briefs"
+  },
+  {
+   "description": "Parsed NASA PSI documents and passages",
+   "name": "documents"
+  },
+  {
+   "description": "Routes for the React dashboard (frontend/DATA_CONTRACT.md): catalog, tests, habitats, RAG chat, conversations, role-based accounts, KPIs",
+   "name": "frontend"
+  },
+  {
+   "description": "FlameAtlas (team service) on this domain: RAG questions, AHP/OWA habitat ranking, droplet-flame prediction",
+   "name": "atlas"
+  },
+  {
+   "description": "Document ingestion, summary generation, cache control and jobs",
+   "name": "admin"
+  }
+ ]
+}
