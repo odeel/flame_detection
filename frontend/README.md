@@ -1,4 +1,6 @@
-# Flame in Freefall: frontend
+# FlameX: frontend
+
+*Exploring combustion beyond Earth.*
 
 A React app for exploring NASA microgravity combustion research (the PSI investigations), simulating how flames behave in habitat atmospheres, and asking a RAG backend (FlameAtlas) cited questions about fire safety in space.
 

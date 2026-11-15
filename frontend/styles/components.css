@@ -516,8 +516,9 @@ input[type=range]:focus-visible { outline: 2px solid var(--primary); outline-off
 .brand:hover { background: var(--surface-1); }
 .brand:hover svg { transform: rotate(-12deg) scale(1.05); }
 .brandtxt { display: grid; line-height: 1.15; }
-.brandtxt b { font: var(--fw-bold) var(--fs-base) var(--font-display); }
-.brandtxt span { font-size: var(--fs-xs); color: var(--text-subtle); letter-spacing: .08em; text-transform: uppercase; }
+.brandtxt b { font: var(--fw-bold) var(--fs-lg) var(--font-display); letter-spacing: -0.02em; }
+.brandtxt b .brand-x { background: var(--grad-flame); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.brandtxt > span { font-size: var(--fs-xs); color: var(--text-subtle); letter-spacing: .08em; text-transform: uppercase; }
 
 .corner-r { margin-left: auto; display: flex; gap: var(--s-2); align-items: center; }
 .nav-links { display: flex; gap: var(--s-2); align-items: center; flex-wrap: wrap; }
@@ -541,8 +542,8 @@ input[type=range]:focus-visible { outline: 2px solid var(--primary); outline-off
 .menu-btn { display: none; }
 
 @media (max-width: 767px) {
-  .brandtxt span { display: none; }
-  .brandtxt b { font-size: var(--fs-sm); }
+  .brandtxt b { font-size: var(--fs-base); }
+  .brandtxt > span { font-size: 10px; letter-spacing: .06em; }
   .menu-btn { display: inline-flex; }
   .nav-links {
     display: none;
@@ -734,3 +735,4 @@ input[type=range]:focus-visible { outline: 2px solid var(--primary); outline-off
   font: var(--fs-sm) / 1.6 var(--font-mono);
   margin: 0;
 }
+

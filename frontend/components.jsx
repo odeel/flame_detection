@@ -27,9 +27,9 @@ export function Corner({ theme, toggle, onHome, children }) {
   return (
     <header className="corner" ref={ref}>
       <div className="container corner-in">
-      <button type="button" className="brand" onClick={onHome} aria-label="NASA Flame Smart Detection, go to home">
+      <button type="button" className="brand" onClick={onHome} aria-label="FlameX, exploring combustion beyond Earth. Go to home">
         <NasaLogo />
-        <span className="brandtxt"><b>NASA Flame Smart Detection</b><span>Flame in Freefall</span></span>
+        <span className="brandtxt"><b>Flame<span className="brand-x">X</span></b><span>Exploring combustion beyond Earth</span></span>
       </button>
       <div className="corner-r">
         <nav className={cx('nav-links', open && 'open')} aria-label="Main" onClick={(e) => e.target.closest('button') && setOpen(false)}>
@@ -64,7 +64,7 @@ export function RoleCards({ value, onChange }) {
 export function AuthHero() {
   return (
     <div className="auth-hero">
-      <p className="eyebrow">Flame in Freefall · NASA PSI data</p>
+      <p className="eyebrow">FlameX · NASA PSI data</p>
       <h1>Fire behaves differently in space. <em>So should fire safety.</em></h1>
       <p className="hero-lead">Explore 24 NASA microgravity combustion investigations, simulate how flames behave in habitat atmospheres, and get cited answers from the data.</p>
       <ul className="auth-feats">

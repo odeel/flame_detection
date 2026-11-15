@@ -1,0 +1,15 @@
+,id,material,category,thickness_mm,density_kg_m3,LOI_pct,nasa_std_6001_test1,peak_HRR_kW_m2,batch_note
+0,M-001,Nomex III fabric,textile,0.4,720,29,pass,,crew suit liner
+1,M-002,PMMA sheet (acrylic),polymer,2.0,1190,17.3,fail,,window cover
+2,M-003,Cotton-fiberglass fabric (SIBAL),textile,0.3,,18.5,fail,,stowage bag lining
+3,M-004,Silicone rubber sheet,elastomer,1.0,1150,28,pass,,hatch seal
+4,M-005,PTFE (Teflon) film,polymer,0.1,2200,95,pass,,wire insulation
+5,M-006,Polyimide film (Kapton),polymer,0.05,1420,37,pass,,thermal blanket layer
+6,M-007,Polyethylene foam,foam,10.0,30,17.5,fail,,packing foam
+7,M-008,Nylon 6/6 webbing,textile,1.5,1140,24,fail,,cargo strap
+8,M-009,Polycarbonate panel,polymer,3.0,1200,25,pass,,instrument panel cover
+9,M-010,Melamine foam,foam,12.0,9,,pass,,acoustic panel
+10,M-011,Cotton t-shirt fabric,textile,0.2,,18,fail,,crew clothing
+11,M-012,Aramid honeycomb panel,composite,6.0,48,,,,floor panel core
+12,M-013,Unknown adhesive tape,adhesive,0.15,,,,,label tape
+13,M-014,Silicone-coated fiberglass,textile,0.5,,45,fail,,flame shield (check test result)

@@ -74,7 +74,7 @@ export default function HomePage({ user, onLogout, onAsk, onOpenChats, onHome, t
         <div className="stack-lg">
           <header className="hero-wrap fade-in">
             <div className="cluster">
-              <p className="eyebrow">Flame in Freefall · {cfg.workspace}</p>
+              <p className="eyebrow">FlameX · {cfg.workspace}</p>
               {viewAs && <Badge tone="warning">Previewing the {cfg.label.toLowerCase()} view</Badge>}
             </div>
             <h1 className="hero">{cfg.headline[0]} <em>{cfg.headline[1]}</em></h1>
