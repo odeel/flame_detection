@@ -16,10 +16,11 @@ function Body({ text, onCite }) {
 export default function ChatPage({ user, chats, onBack, onHome, theme, toggle }) {
   const { chats: list, active, setActive, ask, busy, remove } = chats;
   const [text, setText] = useState(''), [view, setView] = useState(null), [drawer, setDrawer] = useState(false);
+  const canGraph = user.role === 'researcher', [graph, setGraph] = useState(false);   // Graph-RAG: researcher only
   const chat = list.find((c) => c.id === active), turns = chat ? turnsOf(chat.messages) : [];
   const last = useRef(null);
   useEffect(() => { last.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, [turns.length, active]);
-  const send = (t) => { const v = (t ?? text).trim(); if (!v || busy) return; setText(''); ask(v, { id: active, habitat: chat?.habitat }); };
+  const send = (t) => { const v = (t ?? text).trim(); if (!v || busy) return; setText(''); ask(v, { id: active, habitat: chat?.habitat, graph: canGraph && graph }); };
   const open = (s) => setView(s);
 
   return (
@@ -51,15 +52,16 @@ export default function ChatPage({ user, chats, onBack, onHome, theme, toggle })
                     {!a && <div className="skel" aria-label="Searching the data"><i /><i /><i /><p className="muted text-sm">Searching the data and checking every sentence… this can take 10–20 seconds.</p></div>}
                     {a && !a.error && <Body text={a.text} onCite={(l) => { const s = src.find((x) => x.label === l); if (s) open(s); }} />}
                     {a?.error && <p>{a.text}</p>}
-                    {a && !a.error && a.status === 'partial' && <Badge tone="warning">Partial answer</Badge>}
+                    {a && !a.error && (a.status === 'partial' || a.graph) && <div className="cluster">{a.status === 'partial' && <Badge tone="warning">Partial answer</Badge>}{a.graph && <Badge tone="info"><Icon name="graph" /> Knowledge graph{a.graphFacts ? ` · ${a.graphFacts} facts` : ''}</Badge>}</div>}
                     {a && !a.error && (a.answerable === false || a.removed > 0) && <p className="note">{a.answerable === false ? 'The indexed data may not fully answer this. ' : ''}{a.removed > 0 ? `${a.removed} statement(s) were removed because the sources did not support them.` : ''}</p>}
-                    {src.length > 0 && <div className="srcrow"><span className="subtle text-xs">Sources</span>{src.map((s) => <button type="button" key={s.label} className={'srcchip' + (s.used ? ' used' : '')} onClick={() => open(s)} title={s.file}>{s.label} · {s.acronym}{s.pages?.length ? ` · p. ${s.pages[0]}` : ''}</button>)}</div>}
+                    {src.length > 0 && <div className="srcrow"><span className="subtle text-xs">Sources</span>{src.map((s) => <button type="button" key={s.label} className={'srcchip' + (s.used ? ' used' : '')} onClick={() => open(s)} title={s.file || 'Knowledge graph facts'}>{s.label} · {s.kind === 'graph' ? 'graph facts' : s.acronym}{s.pages?.length ? ` · p. ${s.pages[0]}` : ''}</button>)}</div>}
                   </div>
                 </article>);
             })}
           </div>
           <form className="composer" onSubmit={(e) => { e.preventDefault(); send(); }}>
             <textarea rows={1} value={text} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }} placeholder="Ask a follow-up or a new question… (Enter to send)" aria-label="Your question" />
+            {canGraph && <label className="graph-toggle" title="Adds linked facts from the knowledge graph. Best for questions like: which fuels were tested with both CO₂ and helium?"><input type="checkbox" checked={graph} onChange={(e) => setGraph(e.target.checked)} /><Icon name="graph" /><span>Graph</span></label>}
             <button className="cta" type="submit" disabled={busy || !text.trim()}>{busy ? 'Searching…' : <>Send <Icon name="arrowRight" /></>}</button>
           </form>
         </section>

@@ -11,7 +11,7 @@ export function useChats(user) {
   useEffect(() => { localStorage.setItem(key(user.email), JSON.stringify(chats)); }, [chats, user.email]);
   const upd = (id, fn) => setChats((cs) => cs.map((c) => (c.id === id ? fn(c) : c)));
 
-  async function ask(text, { id = null, habitat } = {}) {
+  async function ask(text, { id = null, habitat, graph = false } = {}) {
     const cid = id || crypto.randomUUID();
     const hab = chats.find((c) => c.id === cid)?.habitat || habitat || null;      // { id, name }
     if (!id) setChats((cs) => [{ id: cid, title: text.slice(0, 50), habitat: hab, created: Date.now(), messages: [] }, ...cs]);
@@ -19,8 +19,8 @@ export function useChats(user) {
     upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'user', text, ts: Date.now() }] }));
     setBusy(true);
     try {
-      const r = await api.ask({ question: text, habitat: hab?.id || null, k: 5, check: true });
-      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: r.answer, sources: r.sources || [], status: r.status, answerable: r.answerable, removed: r.removed_sentences?.length || 0, ts: Date.now() }] }));
+      const r = await api.ask({ question: text, habitat: hab?.id || null, k: 5, check: true, graph });   // graph: Graph-RAG adds knowledge-graph facts as one extra source
+      upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: r.answer, sources: r.sources || [], status: r.status, answerable: r.answerable, removed: r.removed_sentences?.length || 0, graph: !!r.graph, graphFacts: r.graph?.n_facts ?? null, ts: Date.now() }] }));
     } catch (e) {
       upd(cid, (c) => ({ ...c, messages: [...c.messages, { role: 'assistant', text: e.message, error: true, sources: [], ts: Date.now() }] }));
     } finally { setBusy(false); }

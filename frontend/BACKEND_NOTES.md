@@ -1,5 +1,5 @@
 # Frontend <-> FlameAtlas API notes
-Used now: GET /habitats, /investigations, /investigation/{id}, /compare, /passage; POST /rank, /ask. Not used yet: /predict, /fuels, /retrieve.
+Used now: GET /habitats, /investigations, /investigation/{id}, /compare, /passage, /fuels, /flammap/{habitat}, /gaps/{habitat}; POST /rank, /ask (also with graph: true), /predict, /whatif, /materials/upload; /materials/report/{name} opened as a link. Not used yet: /retrieve, /graph, /graph/facts.
 Base URL: VITE_API_URL (default http://localhost:8000).
 
 Requests to the backend team

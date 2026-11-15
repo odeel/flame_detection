@@ -13,6 +13,7 @@ import GravityPanel from './components/GravityPanel.jsx';
 import FireControls from './components/FireControls.jsx';
 import FireBasics from './components/FireBasics.jsx';
 import Lessons from './components/Lessons.jsx';
+import MaterialsAnalyzer from './components/MaterialsAnalyzer.jsx';
 import { CoverageChart } from './components/Coverage.jsx';
 
 function Library(c) {
@@ -62,6 +63,12 @@ export const PANELS = {
     <Section id="controls" eyebrow="Safety pillars" title={`Fire controls for ${c.habitat.name}`}
       desc="How many NASA investigations score 50 % or more on each pillar for this habitat. Click a study to open it.">
       <div className="bento"><FireControls rank={c.rank} onOpen={c.openStudy} /></div>
+    </Section>
+  ),
+  materials: (c) => (
+    <Section id="materials" eyebrow="Material analysis" title="Material fire-risk analysis"
+      desc="Upload a materials dataset. Each material is matched to what NASA burned in orbit, checked against every habitat’s cabin oxygen, and given a cited risk level with the data still missing.">
+      <MaterialsAnalyzer habitat={c.habitat} />
     </Section>
   ),
   library: Library,

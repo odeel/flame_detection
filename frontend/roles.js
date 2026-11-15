@@ -3,13 +3,13 @@
 export const ROLES = {
   researcher: {
     label: 'Researcher', icon: 'beaker', workspace: 'Research lab', canViewAs: 'engineer',
-    blurb: 'Full predictive model, flammability maps, test-gap finder and the complete PSI data.',
+    blurb: 'Full predictive model, flammability maps, test-gap finder, material risk analysis and the complete PSI data.',
     headline: ['Turn NASA combustion research into mission-ready', 'fire intelligence.'],
     lead: 'Run the droplet-flame model, map where flames sustain themselves, and find the conditions NASA has not tested yet.',
     search: 'Search NASA combustion data (e.g. "Show solid material extinction limits in 30% O₂")',
     queries: ['Which tests cover lunar base conditions?', 'Is there partial-gravity data?', 'Extinction limits in elevated O₂', 'Which fuels were tested with both CO₂ and helium?'],
     habitats: true,
-    sections: ['simulator', 'gaps', 'library', 'lessons'],
+    sections: ['simulator', 'gaps', 'materials', 'library', 'lessons'],
     library: ['Explorer', 'Compare', 'Habitats', 'Partial gravity'],
   },
   engineer: {

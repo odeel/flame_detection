@@ -7,6 +7,7 @@ A React app for exploring NASA microgravity combustion research (the PSI investi
 - [What the app does](#what-the-app-does)
 - [Roles and dashboards](#roles-and-dashboards)
 - [The Flame Simulator](#the-flame-simulator)
+- [Materials risk screening](#materials-risk-screening)
 - [Project structure](#project-structure)
 - [How it works](#how-it-works)
 - [Backend API used](#backend-api-used)
@@ -59,6 +60,7 @@ Accounts live in memory (`App.jsx`). New sign-ups are lost on reload.
    - a "Partial answer" badge when the sources only partly answer it;
    - a note when the fact-check pass removed unsupported sentences.
    - History is kept per user in `localStorage`.
+   - Researchers get a **Graph** toggle in the composer. It sends `graph: true` (Graph-RAG), which adds knowledge-graph facts as one extra source. It is best for questions like "which fuels were tested with both CO₂ and helium?". The answer shows a "Knowledge graph" badge, and the graph source opens its fact text instead of a passage. Engineers and students don't see the toggle.
 4. **Go home at any time.** Clicking the NASA logo or the title returns to a fresh home page. That resets tabs, the open investigation and the "View as" preview.
 5. **Theme.** Dark or light, saved in `localStorage`. The toggle is in the header.
 
@@ -77,7 +79,7 @@ Roles are configuration, not separate pages. `roles.js` defines, per role:
 |---|---|---|---|
 | Habitat bar | yes | yes | no |
 | KPIs | investigations, test rows, highest O₂ tested, partial-gravity datasets | habitat O₂, pressure, gravity, worst-case droplet burn | Earth and history facts |
-| Sections | `simulator`, `gaps`, `library`, `lessons` | `controls`, `scenario`, `library`, `lessons` | `playground`, `basics`, `earth`, `globe`, `lessons`, `askai` |
+| Sections | `simulator`, `gaps`, `materials`, `library`, `lessons` | `controls`, `scenario`, `library`, `lessons` | `playground`, `basics`, `earth`, `globe`, `lessons`, `askai` |
 | Simulator | full: all controls, intervals, nearest tests, sensitivity | decision view: what-if first, flammability map | Playground: one O₂ slider, plain-language result |
 | Can preview | engineer view | researcher view | — |
 
@@ -89,6 +91,7 @@ Roles are configuration, not separate pages. `roles.js` defines, per role:
 | `scenario` | Flame simulator, engineer layout ("What if the cabin atmosphere changes?") |
 | `gaps` | Test-gap finder plus the chart of tested conditions vs the habitat |
 | `controls` | Three fire-control pillar cards: prevention, detection, suppression |
+| `materials` | Materials risk screening: upload a CSV of cabin materials, get a cited risk level per material (researcher only) |
 | `library` | Tabbed card: Explorer, Compare, Habitats (3D globe), Partial gravity |
 | `lessons` | Historical timeline, from Apollo 1 onwards |
 | `playground` | Student flame playground |
@@ -138,6 +141,30 @@ The cards are separate, and each has its own loading, error and Retry state:
 
 Composition per role is in `simulator/Simulator.jsx` (`mode="researcher"` or `"engineer"`).
 
+## Materials risk screening
+
+Researcher only, in `components/MaterialsAnalyzer.jsx`. It works on a materials dataset against NASA's test evidence, so it sits in the research lab after the test-gap finder. Engineers can open it with "View as Researcher".
+
+1. **Upload.** Drop or browse for a CSV: one material per row, an `id` column, comma, semicolon or tab separated.
+   - The browser checks the file first, so nothing is sent (or paid for) when it would be rejected: the extension, 5 MB or less, an `id` column, and 1–200 rows.
+   - A template CSV is available to download.
+2. **Screen.** `POST /materials/upload` takes about 10–30 s for new rows and about 2 s for cached ones.
+3. **Results.**
+   - **Summary:** the file name, row count, AI cost, and any duplicate ids.
+   - **Risk counts:** tiles for high, medium, low and unknown, plus how many materials were flagged.
+   - **Cabin oxygen check:** a materials × habitats table from `loi_by_habitat`. It shows "Self-extinguishes" or "May burn", and the selected habitat's column is highlighted.
+   - **Material by material:** expandable rows you can filter by risk and search. Each shows:
+     - the risk and confidence;
+     - the matched NASA material and how close the match is;
+     - contradiction flags;
+     - the reasons, with source chips: "your data" for the CSV row, `G` for the knowledge graph, `E1…E4` for passages, which open in the source viewer;
+     - what NASA tested;
+     - the data that would sharpen the result.
+   - **Ignored columns:** the list of dropped columns, each with its reason.
+   - **Open full report:** the backend's HTML report with charts.
+
+Errors from the backend (422 bad file, 413 too big, 503 no AI key) show in an error state with Retry.
+
 ---
 
 ## Project structure
@@ -170,6 +197,7 @@ frontend/
 │  ├─ ComparePanel.jsx            side-by-side table for 2–3 pinned investigations
 │  ├─ Coverage.jsx                useCoverage() + tested-conditions scatter chart
 │  ├─ FireControls.jsx            three safety-pillar cards
+│  ├─ MaterialsAnalyzer.jsx       materials CSV upload + risk screening (researcher)
 │  ├─ GravityPanel.jsx            partial-gravity facts (NTRS)
 │  ├─ EarthImpact.jsx             student Earth sections
 │  ├─ FireBasics.jsx              candle vs space-flame illustration + facts
@@ -247,8 +275,11 @@ Base URL: `VITE_API_URL` (default `http://localhost:8000`). Full request and res
 | GET | `/flammap/{habitat}?fuel=&n=40` | flammability map, sensitivity, engineer KPI | free |
 | GET | `/gaps/{habitat}?n=6&explain=` | test-gap finder | free; ~$0.005 with `explain=true` |
 | POST | `/whatif` | what-if card | free with values; ~$0.01 for typed text |
+| POST | `/ask` + `graph: true` | chat Graph toggle | like `/ask` |
+| POST | `/materials/upload?report=true` | materials screening | ~$0.005 per new row, free cached |
+| GET | `/materials/report/{name}` | "Open full report" link (opens in a new tab) | free |
 
-`/retrieve`, `/graph` and `/graph/facts` exist on the backend but aren't used yet.
+`/retrieve`, `/graph` and `/graph/facts` exist on the backend but aren't called directly yet.
 
 The backend must allow CORS from `http://localhost:5173`. Errors arrive as `{"detail": "…"}` and are shown in the error states. A 503 means no LLM key is configured.
 
@@ -337,4 +368,3 @@ The heatmap colour ramps are in `simulator/scale.js`.
 - **Model scope.** The prediction model covers droplet flames, trained in microgravity. Gravity is not an input, so Moon and Mars results show O₂ and pressure effects only. The UI says so in its warnings.
 - **Hardcoded KPIs.** "0 partial-gravity datasets" and the student facts are static, pending a backend `/stats` endpoint.
 - **Assumed atmospheres.** Gateway, Moon and Mars atmospheres are NASA-considered candidates, not confirmed setpoints. The habitat bar shows the backend's note for each.
-

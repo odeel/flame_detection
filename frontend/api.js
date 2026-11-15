@@ -29,6 +29,12 @@ export const api = {
   flammap: (hid, fuel, n = 40) => j(`/flammap/${encodeURIComponent(hid)}?${qs({ fuel, n })}`),
   gaps: (hid, n = 6, explain = false) => j(`/gaps/${encodeURIComponent(hid)}?${qs({ n, explain })}`), // explain=true costs ~$0.005
   whatif: (b) => post('/whatif', b),      // values mode is free; { text } mode uses the LLM (~$0.01)
+  // Materials fire-risk screening: multipart upload of one CSV (field "file"); ~$0.005 per new row, cached rows free.
+  materialsUpload: (file, report = true) => {
+    const fd = new FormData(); fd.append('file', file);
+    return j(`/materials/upload?report=${report}`, { method: 'POST', body: fd, headers: {} });   // empty headers: browser sets the multipart boundary
+  },
+  absolute: (path) => (path ? BASE + path : null),   // turns a backend path such as report_url into a full link
 };
 export const local = (name) => fetch(`/data/${name}.json`).then((r) => r.json());   // static files in public/data
 
